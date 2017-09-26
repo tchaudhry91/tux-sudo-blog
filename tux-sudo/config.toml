@@ -18,3 +18,11 @@ sharingicons = true
 [[params.social]]
 url = "https://github.com/tchaudhry91"
 fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/Tuxybuzz13"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/"
+fa_icon = "fa-linkedin"

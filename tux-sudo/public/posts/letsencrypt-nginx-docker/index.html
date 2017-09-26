@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="docker, go, linux, star wars, automation, devops" name="keywords">
+<meta content="Tanmay Chaudhry" name="author">
+<meta property="og:title" content="LetsEncrypt Certificates for Dockerized Nginx - Tux-Sudo">
+<meta property="og:url" content="https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/">
+<meta property="og:description" content="#chmod 400 droids_im_looking_for">
+<meta property="og:type" content="website" />
+<title>LetsEncrypt Certificates for Dockerized Nginx | Tux-Sudo</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://blog.tux-sudo.com/css/style.css">
+<link rel="shortcut icon" href="https://blog.tux-sudo.com/wave.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.tux-sudo.com"><h1 class="title is-4">Tux-Sudo</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/tchaudhry91" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/Tuxybuzz13" target="_blank">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">LetsEncrypt Certificates for Dockerized Nginx</h1>
+    <h2 class="subtitle is-5">September 26, 2017 by Tanmay Chaudhry</h2>
+    
+    <div class="content">
+      <p>I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.<br>
+If you, like me are operating a small time website, you probably don&rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, <a href="https://letsencrypt.org">LetsEncrypt</a> provides <strong>free</strong> ssl certificates and is now trusted by most major browsers.<br>
+However, integrating <a href="https://certbot.eff.org/">certbot</a> to automatically configure my nginx inside a docker container has been a pain. In the past, I generated the standalone cert with &ndash;cert-only and then linked my docker container to use it but this was a far from usable solution given the horrid automation code I had to write. <br>
+Recently, I tried to come up with a more automation friendly solution and ended up with the following:<br></p>
+
+<ul>
+<li><p>Custom <strong>nginx image</strong> with certbot pre-installed inside the container. <br></p>
+
+<p><strong>Dockerfile</strong>:</p>
+
+<pre><code>FROM nginx
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+  certbot \
+  python-certbot-nginx
+
+ADD certify.sh /
+
+RUN chmod +x certify.sh
+
+</code></pre>
+
+<p><strong>certify.sh</strong>:</p>
+
+<pre><code>#!/bin/bash
+
+certbot --nginx -d $DOMAIN -m $EMAIL --agree-tos -n --redirect 
+</code></pre>
+
+<p>Github-Source: <a href="https://github.com/tchaudhry91/nginx-certbot-docker">https://github.com/tchaudhry91/nginx-certbot-docker</a><br>
+DockerHub Image: <a href="https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/">https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/</a></p></li>
+
+<li><p>Then I would simply run the container with the following docker-compose block:</p>
+
+<pre><code>version: '3'
+
+services:
+  web:
+    image: tchaudhry/nginx-certbot-docker
+    container_name: web
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    environment:
+      - DOMAIN=example.com
+      - EMAIL=xyz@example.com
+    volumes:
+      - letsencrypt:/etc/letsencrypt
+      - ./config/nginx_config.conf:/etc/nginx/conf.d/default.conf
+
+volumes:
+  letsencrypt:
+</code></pre>
+
+<p>An equivalent <code>docker run</code> command would also suffice. But do make note of the <em>enviroment variables</em> and the <em>letsencrypt volume</em>.</p>
+
+<ul>
+<li>The <em>enviroment variables</em> are used to provide information about the domain for which the certificate is to be requested.</li>
+<li>The <em>letsencrypt</em> volume is also essential as this will prevent recertification till the old certificate expires. This can also be a host-mounted directory, however I prefer docker volumes.</li>
+</ul></li>
+
+<li><p>This image does not do ssl yet. Infact, it can be used as a drop in replacement for the regular nginx image. I can &lsquo;certify&rsquo; the container inside it on demand with:<br>
+<code>docker exec container_name /certify.sh</code>
+This command can easily be cron-ed on the base system to re-certify and prevent expired certificates.</p></li>
+</ul>
+
+<p><strong>Pitfalls</strong></p>
+
+<ul>
+<li>While this works for now, a true service is most likely going to be load balanced. This approach would require scaling down a single container to ensure the letsencrypt verification passes before certification. The service can then be scaled back up, and given the shared volume, it will work without requiring re-certification.</li>
+</ul>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fletsencrypt-nginx-docker%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fletsencrypt-nginx-docker%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fletsencrypt-nginx-docker%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=LetsEncrypt%20Certificates%20for%20Dockerized%20Nginx - https%3a%2f%2fblog.tux-sudo.com%2fposts%2fletsencrypt-nginx-docker%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fletsencrypt-nginx-docker%2f&title=LetsEncrypt%20Certificates%20for%20Dockerized%20Nginx" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-83389316-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
