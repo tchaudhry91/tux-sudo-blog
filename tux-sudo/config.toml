@@ -1,0 +1,19 @@
+baseURL = "http://tux-sudo.com/blog"
+languageCode = "en-us"
+title = "Tux-Sudo"
+theme = "Hucore"
+disqusShortname = "tux-sudo"
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[params]
+description = "#chmod 400 droids_im_looking_for"
+keywords = ["docker", "go", "linux", "star wars", "automation", "devops"]
+author = "Tanmay Chaudhry"
+sharingicons = true
+
+[[params.social]]
+url = "https://github.com/tchaudhry91"
+fa_icon = "fa-github"

@@ -1,0 +1,3 @@
+[submodule "tux-sudo/themes/hucore"]
+	path = tux-sudo/themes/hucore
+	url = https://github.com/mgjohansen/hucore.git
