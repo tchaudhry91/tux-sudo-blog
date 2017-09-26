@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Tux-Sudo"
 theme = "Hucore"
 disqusShortname = "tux-sudo"
+googleAnalytics = "UA-83389316-1"
 
 [taxonomies]
 tag = "tags"
