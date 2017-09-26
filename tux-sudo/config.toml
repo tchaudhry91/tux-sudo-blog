@@ -1,4 +1,4 @@
-baseURL = "http://tux-sudo.com/blog"
+baseURL = "https://blog.tux-sudo.com"
 languageCode = "en-us"
 title = "Tux-Sudo"
 theme = "Hucore"
