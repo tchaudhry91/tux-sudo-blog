@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Tux-Sudo</title>
-    <link>https://blog.tux-sudo.com/posts/</link>
-    <description>Recent content in Posts on Tux-Sudo</description>
+    <title>Ops on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/categories/ops/</link>
+    <description>Recent content in Ops on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Feb 2018 11:01:54 +0530</lastBuildDate>
     
-	<atom:link href="https://blog.tux-sudo.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.tux-sudo.com/categories/ops/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

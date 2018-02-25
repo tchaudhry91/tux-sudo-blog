@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Certbot on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/tags/certbot/</link>
+    <description>Recent content in Certbot on Tux-Sudo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 Sep 2017 16:25:49 +0530</lastBuildDate>
+    
+	<atom:link href="https://blog.tux-sudo.com/tags/certbot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LetsEncrypt Certificates for Dockerized Nginx</title>
+      <link>https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/</link>
+      <pubDate>Tue, 26 Sep 2017 16:25:49 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/</guid>
+      <description>I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.
+If you, like me are operating a small time website, you probably don&amp;rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.
+However, integrating certbot to automatically configure my nginx inside a docker container has been a pain.</description>
+    </item>
+    
+  </channel>
+</rss>

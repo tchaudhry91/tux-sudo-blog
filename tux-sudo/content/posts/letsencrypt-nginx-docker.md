@@ -1,6 +1,9 @@
 ---
 title: "LetsEncrypt Certificates for Dockerized Nginx"
 date: 2017-09-26T16:25:49+05:30
+tags: ["docker", "nginx", "webserver", "certbot", "letsencrypt"]
+categories: ["Ops"]
+project_url: "https://github.com/tchaudhry91/nginx-certbot-docker"
 ---
 
 I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.<br>

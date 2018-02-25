@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Tux-Sudo</title>
-    <link>https://blog.tux-sudo.com/posts/</link>
-    <description>Recent content in Posts on Tux-Sudo</description>
+    <title>Golang on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/tags/golang/</link>
+    <description>Recent content in Golang on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Feb 2018 11:01:54 +0530</lastBuildDate>
     
-	<atom:link href="https://blog.tux-sudo.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.tux-sudo.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,17 +19,6 @@
       <guid>https://blog.tux-sudo.com/posts/caddy-autohttps/</guid>
       <description>This one is a gamechanger. It really is.
 On a recent Golang obsessed Github browsing spree, I read the following project description: &amp;ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&amp;rdquo;. I&amp;rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like this to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!</description>
-    </item>
-    
-    <item>
-      <title>LetsEncrypt Certificates for Dockerized Nginx</title>
-      <link>https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/</link>
-      <pubDate>Tue, 26 Sep 2017 16:25:49 +0530</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/</guid>
-      <description>I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.
-If you, like me are operating a small time website, you probably don&amp;rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.
-However, integrating certbot to automatically configure my nginx inside a docker container has been a pain.</description>
     </item>
     
   </channel>

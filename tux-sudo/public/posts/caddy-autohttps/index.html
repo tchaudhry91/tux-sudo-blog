@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="docker, go, linux, star wars, automation, devops" name="keywords">
+<meta content="Tanmay Chaudhry" name="author">
+<meta property="og:title" content="Caddy! Team 443 FTW - Tux-Sudo">
+<meta property="og:url" content="https://blog.tux-sudo.com/posts/caddy-autohttps/">
+<meta property="og:description" content="#chmod 400 droids_im_looking_for">
+<meta property="og:type" content="website" />
+<title>Caddy! Team 443 FTW | Tux-Sudo</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://blog.tux-sudo.com/css/style.css">
+<link rel="shortcut icon" href="https://blog.tux-sudo.com/wave.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.tux-sudo.com"><h1 class="title is-4">Tux-Sudo</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/tchaudhry91" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/Tuxybuzz13" target="_blank">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Caddy! Team 443 FTW</h1>
+    <h2 class="subtitle is-5">February 19, 2018 by Tanmay Chaudhry</h2>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/golang">golang</a>
+    
+        <a class="button is-link" href="/tags/caddy">caddy</a>
+    
+        <a class="button is-link" href="/tags/webserver">webserver</a>
+    
+        <a class="button is-link" href="/tags/https">https</a>
+    
+        <a class="button is-link" href="/tags/tls">tls</a>
+    
+        <a class="button is-link" href="/tags/letsencrypt">LetsEncrypt</a>
+    
+        <a class="button is-link" href="/tags/nginx">nginx</a>
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+</div>
+
+    
+    <div class="content">
+      
+
+<p>This one is a gamechanger. It really is.</p>
+
+<p>On a recent Golang obsessed Github browsing spree, I read the following project description: &ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&rdquo;. I&rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like <a href="https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/">this</a> to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!). I decided to try out <a href="https://caddyserver.com/">Caddy</a>.</p>
+
+<p>After about an hour, I had the &ldquo;Luke, I&rsquo;m your father movie&rdquo; moment. Now, I&rsquo;m happily munching secure cookies on the dark side. Check out the line below:</p>
+
+<p><code>tls tiredsysadmin@deathstar.com</code></p>
+
+<p>That is all you have to configure to get a truly automatic Let&rsquo;s Encrypt HTTPS-enabled website served by caddy.</p>
+
+<p>What&rsquo;s more? Caddy really feels like a breath of fresh air in terms of configuration. It is written with usability in mind. I thought we already had it pretty good with nginx (but I come from Apache, so make of it what you will), but this is even better.</p>
+
+<p>Check out a sample configuration for an entrypoint that I use:</p>
+
+<pre><code>tux-sudo.com {
+  tls tanmay.chaudhry@gmail.com
+
+  redir / blog.tux-sudo.com 301
+}
+</code></pre>
+
+<p>Yeah, okay it&rsquo;s not much (but isn&rsquo;t that the beauty?). When was the last time you saw an auto-TLS configured in 2 lines? Also, no more returns/redirect to write for HTTP traffic. This does auto-redirects. Stuff like this is why it feels like a true out-of-the-box HTTPS solution. You can still go deep and configure stuff to work the way you want, but more often than not I just want it to work.</p>
+
+<p>But I had a slightly more complex use-case. I wanted to proxy to my prometheus instance. This is running on a raspberry-pi on my internal network behind a dynamic IP. For ISP reasons, I was not able to bind to 443 for the incoming internet. That creates a problem for the let&rsquo;s encrypt challenge. Aw, back to DNS records and manual cert installation? Well, no. Check this out:</p>
+
+<pre><code>prometheus.tux-sudo.com {
+  log / /var/log/caddy/caddy-prometheus.log
+  basicauth / hah nicetry 
+  tls {
+    dns route53
+  }
+  proxy / localhost:9090 {
+    transparent
+  }
+}
+</code></pre>
+
+<p>Yes, that is all. Set your DNS provider creds in environment variables and keep munching those cookies.</p>
+
+<p>The real clincher is that everything here works exactly the same inside containers.</p>
+
+<pre><code>version: '3'
+
+services:
+  web:
+    image: abiosoft/caddy
+    container_name: web
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    environment:
+      - CADDYPATH=/etc/caddycerts
+    volumes:
+      - $HOME/.caddy:/etc/caddycerts
+      - ./config/caddyfile:/etc/Caddyfile
+</code></pre>
+
+<p>If you&rsquo;re an enthusiast who writes abandonable personal projects every weekend, I urge you to try this out. It is supposed to be production ready as well if you&rsquo;re interested, but that&rsquo;s not something I have tested.</p>
+
+<h1 id="caddy-https-caddyserver-com-caddy-github-https-github-com-mholt-caddy"><a href="https://caddyserver.com/">Caddy</a> : <a href="https://github.com/mholt/caddy">Caddy-Github</a></h1>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fcaddy-autohttps%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fcaddy-autohttps%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fcaddy-autohttps%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Caddy%21%20Team%20443%20FTW - https%3a%2f%2fblog.tux-sudo.com%2fposts%2fcaddy-autohttps%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fcaddy-autohttps%2f&title=Caddy%21%20Team%20443%20FTW" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-83389316-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
