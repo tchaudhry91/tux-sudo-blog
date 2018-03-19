@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Feb 2018 11:01:54 +0530</lastBuildDate>
+    <lastBuildDate>Mon, 19 Mar 2018 11:52:57 +0530</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Arm</title>
+      <link>https://blog.tux-sudo.com/tags/arm/</link>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/arm/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Caddy</title>
@@ -32,7 +41,7 @@
     <item>
       <title>Docker</title>
       <link>https://blog.tux-sudo.com/tags/docker/</link>
-      <pubDate>Mon, 19 Feb 2018 11:01:54 +0530</pubDate>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/tags/docker/</guid>
       <description></description>
@@ -41,7 +50,7 @@
     <item>
       <title>Golang</title>
       <link>https://blog.tux-sudo.com/tags/golang/</link>
-      <pubDate>Mon, 19 Feb 2018 11:01:54 +0530</pubDate>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/tags/golang/</guid>
       <description></description>
@@ -71,6 +80,24 @@
       <pubDate>Mon, 19 Feb 2018 11:01:54 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Raspberrypi</title>
+      <link>https://blog.tux-sudo.com/tags/raspberrypi/</link>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/raspberrypi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scaleway</title>
+      <link>https://blog.tux-sudo.com/tags/scaleway/</link>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/scaleway/</guid>
       <description></description>
     </item>
     

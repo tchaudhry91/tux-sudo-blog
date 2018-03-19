@@ -11,9 +11,18 @@
     
     
     <item>
+      <title>Dev</title>
+      <link>https://blog.tux-sudo.com/categories/dev/</link>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/dev/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Ops</title>
       <link>https://blog.tux-sudo.com/categories/ops/</link>
-      <pubDate>Mon, 19 Feb 2018 11:01:54 +0530</pubDate>
+      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/categories/ops/</guid>
       <description></description>

@@ -64,6 +64,40 @@
   <div class="container">
     
     <article>
+      <h1 class="title"><a href="https://blog.tux-sudo.com/posts/armyourcontainers/">ARM Your Golang Containers</a></h1>
+      <h2 class="subtitle is-5">March 19, 2018</h2>
+      
+        <div class="tags">
+    
+        <a class="button is-link" href="/tags/golang">golang</a>
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+        <a class="button is-link" href="/tags/arm">arm</a>
+    
+        <a class="button is-link" href="/tags/raspberrypi">raspberrypi</a>
+    
+        <a class="button is-link" href="/tags/scaleway">scaleway</a>
+    
+</div>
+
+      
+      <div class="content">
+        So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.
+Here is an example of such a service: hash-svc. At it&rsquo;s core, all it does is take a string and returns it hash.
+tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000 {&quot;addr&quot;:&quot;:12000&quot;,&quot;msg&quot;:&quot;Started HTTP Server&quot;} {&quot;err&quot;:null,&quot;input&quot;:&quot;123&quot;,&quot;method&quot;:&quot;hashsha256&quot;,&quot;output&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;,&quot;took&quot;:&quot;41.472µs&quot;} tchaudhr:~/ $ curl http://localhost:12000/hash\?s\=123 {&quot;v&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;}  Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit.
+        
+        ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/armyourcontainers/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h1 class="title"><a href="https://blog.tux-sudo.com/posts/caddy-autohttps/">Caddy! Team 443 FTW</a></h1>
       <h2 class="subtitle is-5">February 19, 2018</h2>
       

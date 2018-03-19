@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Golang on Tux-Sudo</title>
-    <link>https://blog.tux-sudo.com/tags/golang/</link>
-    <description>Recent content in Golang on Tux-Sudo</description>
+    <title>Dev on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/categories/dev/</link>
+    <description>Recent content in Dev on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Mar 2018 11:52:57 +0530</lastBuildDate>
     
-	<atom:link href="https://blog.tux-sudo.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.tux-sudo.com/categories/dev/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.
 Here is an example of such a service: hash-svc. At it&amp;rsquo;s core, all it does is take a string and returns it hash.
 tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000 {&amp;quot;addr&amp;quot;:&amp;quot;:12000&amp;quot;,&amp;quot;msg&amp;quot;:&amp;quot;Started HTTP Server&amp;quot;} {&amp;quot;err&amp;quot;:null,&amp;quot;input&amp;quot;:&amp;quot;123&amp;quot;,&amp;quot;method&amp;quot;:&amp;quot;hashsha256&amp;quot;,&amp;quot;output&amp;quot;:&amp;quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&amp;quot;,&amp;quot;took&amp;quot;:&amp;quot;41.472µs&amp;quot;} tchaudhr:~/ $ curl http://localhost:12000/hash\?s\=123 {&amp;quot;v&amp;quot;:&amp;quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&amp;quot;}  Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit.</description>
-    </item>
-    
-    <item>
-      <title>Caddy! Team 443 FTW</title>
-      <link>https://blog.tux-sudo.com/posts/caddy-autohttps/</link>
-      <pubDate>Mon, 19 Feb 2018 11:01:54 +0530</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/posts/caddy-autohttps/</guid>
-      <description>This one is a gamechanger. It really is.
-On a recent Golang obsessed Github browsing spree, I read the following project description: &amp;ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&amp;rdquo;. I&amp;rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like this to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!</description>
     </item>
     
   </channel>
