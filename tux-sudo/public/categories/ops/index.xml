@@ -17,9 +17,9 @@
       <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/armyourcontainers/</guid>
-      <description>So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.
-Here is an example of such a service: hash-svc. At it&amp;rsquo;s core, all it does is take a string and returns it hash.
-tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000 {&amp;quot;addr&amp;quot;:&amp;quot;:12000&amp;quot;,&amp;quot;msg&amp;quot;:&amp;quot;Started HTTP Server&amp;quot;} {&amp;quot;err&amp;quot;:null,&amp;quot;input&amp;quot;:&amp;quot;123&amp;quot;,&amp;quot;method&amp;quot;:&amp;quot;hashsha256&amp;quot;,&amp;quot;output&amp;quot;:&amp;quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&amp;quot;,&amp;quot;took&amp;quot;:&amp;quot;41.472µs&amp;quot;} tchaudhr:~/ $ curl http://localhost:12000/hash\?s\=123 {&amp;quot;v&amp;quot;:&amp;quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&amp;quot;}  Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit.</description>
+      <description>&lt;p&gt;So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

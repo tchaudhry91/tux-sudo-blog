@@ -8,6 +8,8 @@ tags: ["golang", "docker", "arm", "raspberrypi", "scaleway"]
 
 So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.
 
+<!--more-->
+
 Here is an example of such a service: [hash-svc] (https://github.com/tchaudhry91/hash-svc). At it's core, all it does is take a string and returns it hash.
 ```
 tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000
