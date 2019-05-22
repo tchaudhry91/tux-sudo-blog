@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Certbot on Tux-Sudo</title>
+    <title>certbot on Tux-Sudo</title>
     <link>https://blog.tux-sudo.com/tags/certbot/</link>
-    <description>Recent content in Certbot on Tux-Sudo</description>
+    <description>Recent content in certbot on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Sep 2017 16:25:49 +0530</lastBuildDate>

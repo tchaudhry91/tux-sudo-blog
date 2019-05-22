@@ -20,7 +20,7 @@
   });
 </script>
 <link rel="stylesheet" href="https://blog.tux-sudo.com/css/style.css">
-<link rel="shortcut icon" href="https://blog.tux-sudo.com/wave.ico">
+<link rel="shortcut icon" href="https://blog.tux-sudo.com/favicon.ico">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
@@ -83,8 +83,6 @@
     
     <div class="content">
       <p>So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.</p>
-
-<p></p>
 
 <p>Here is an example of such a service: <a href="https://github.com/tchaudhry91/hash-svc">hash-svc</a>. At it&rsquo;s core, all it does is take a string and returns it hash.</p>
 
@@ -164,12 +162,16 @@ And that&rsquo;s all, custom service containers on your Pi! You can check out th
 <script>hljs.initHighlightingOnLoad();</script>
 
 
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-83389316-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83389316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

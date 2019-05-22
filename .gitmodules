@@ -1,3 +1,6 @@
 [submodule "tux-sudo/themes/hucore"]
 	path = tux-sudo/themes/hucore
 	url = https://github.com/mgjohansen/hucore.git
+[submodule "tux-sudo/themes/kiss"]
+	path = tux-sudo/themes/kiss
+	url = https://github.com/ribice/kiss.git
