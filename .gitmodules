@@ -4,3 +4,6 @@
 [submodule "tux-sudo/themes/kiss"]
 	path = tux-sudo/themes/kiss
 	url = https://github.com/ribice/kiss.git
+[submodule "tux-sudo/themes/hugo-alageek-theme"]
+	path = tux-sudo/themes/hugo-alageek-theme
+	url = https://github.com/gkmngrgn/hugo-alageek-theme.git

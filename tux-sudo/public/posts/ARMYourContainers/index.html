@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="docker, go, linux, star wars, automation, devops" name="keywords">
+<meta content="Tanmay Chaudhry" name="author">
+<meta property="og:title" content="ARM Your Golang Containers - Tux-Sudo">
+<meta property="og:url" content="https://blog.tux-sudo.com/posts/ARMYourContainers/">
+<meta property="og:description" content="#chmod 400 droids_im_looking_for">
+<meta property="og:type" content="website" />
+<title>ARM Your Golang Containers | Tux-Sudo</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://blog.tux-sudo.com/css/style.css">
+<link rel="shortcut icon" href="https://blog.tux-sudo.com/favicon.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.tux-sudo.com"><h1 class="title is-4">Tux-Sudo</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/tchaudhry91" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/Tuxybuzz13" target="_blank">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">ARM Your Golang Containers</h1>
+    <h2 class="subtitle is-5">March 19, 2018 by Tanmay Chaudhry</h2>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/golang">golang</a>
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+        <a class="button is-link" href="/tags/arm">arm</a>
+    
+        <a class="button is-link" href="/tags/raspberrypi">raspberrypi</a>
+    
+        <a class="button is-link" href="/tags/scaleway">scaleway</a>
+    
+</div>
+
+    
+    <div class="content">
+      <p>So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.</p>
+
+<p></p>
+
+<p>Here is an example of such a service: <a href="https://github.com/tchaudhry91/hash-svc">hash-svc</a>. At it&rsquo;s core, all it does is take a string and returns it hash.</p>
+
+<pre><code>tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000
+{&quot;addr&quot;:&quot;:12000&quot;,&quot;msg&quot;:&quot;Started HTTP Server&quot;}
+{&quot;err&quot;:null,&quot;input&quot;:&quot;123&quot;,&quot;method&quot;:&quot;hashsha256&quot;,&quot;output&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;,&quot;took&quot;:&quot;41.472µs&quot;}
+
+tchaudhr:~/ $ curl http://localhost:12000/hash\?s\=123                                                                    
+{&quot;v&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;}
+</code></pre>
+
+<p>Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit. Check the Makefile, Dockerfile and the travis.yml in this <a href="https://github.com/tchaudhry91/hash-svc/tree/a6bccb829f18e6d1f9e6f9592e0700d14ad03f4b">commit</a> to see how I achieved that.</p>
+
+<p>There&rsquo;s a problem. I couldn&rsquo;t run this image on my Pi or new bare metal 2.99$/month ARM server on <a href="https://scaleway.com">scaleway</a>.</p>
+
+<p>Docker officially supports ARMv7, Golang cross-compiles quite well. Shouldn&rsquo;t be that hard.</p>
+
+<p>First up, modify the Dockerfile to cross-build for ARM instead.</p>
+
+<pre><code>ENV     CGO_ENABLED=0
+ENV     GOOS=linux
+ENV     GOARCH=arm
+</code></pre>
+
+<p>This should now produce binaries that would run on ARMv7-linux (i.e RaspberryPi). CGO is disabled by default when cross-compiling, but in a multi-stage docker build it can cause problems, so we disable it for the non-ARM version as well.</p>
+
+<p>Next up, modify the final image to be ARM compliant.
+Replace <code>FROM alpine</code> with an ARM-based image like <a href="https://hub.docker.com/r/arm32v7/ubuntu/">arm32v7/ubuntu</a> or the more lightweight <code>FROM hypriot/rpi-alpine</code> from the guys over at <a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">Hypriot</a></p>
+
+<p>Add the targets to the <a href="https://github.com/tchaudhry91/hash-svc/blob/master/Makefile">Makefile</a> and now you should have a build mechanism for ARM containers.
+There is, however, one problem. While the service itself is cross-compiled and runs on ARM, the final image builder that we use also uses other commands to prepare the image. An example would be <code>RUN apk update &amp;&amp; apk add --no-cache ca-certificates</code>. This command fails to run on my x86 machine because <code>apk</code> itself is an ARM binary.
+This means we need a processor emulator to be able to build them on TravisCI. Fortunately, the cool guys at <a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">Hypriot</a> have documented an easy method to get that done. Read the blog in full if you need more details, but here the command you need to run in your travis.yml to get this to work.</p>
+
+<p><code>docker run --rm --privileged multiarch/qemu-user-static:register --reset</code></p>
+
+<p>This will register the QEMU processor emulator for the ARM binaries (via binfmt_misc).
+And that&rsquo;s all, custom service containers on your Pi! You can check out the full code over here in this <a href="https://github.com/tchaudhry91/hash-svc">repo</a></p>
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fARMYourContainers%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fARMYourContainers%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fARMYourContainers%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=ARM%20Your%20Golang%20Containers - https%3a%2f%2fblog.tux-sudo.com%2fposts%2fARMYourContainers%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fARMYourContainers%2f&title=ARM%20Your%20Golang%20Containers" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-83389316-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>

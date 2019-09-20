@@ -1,7 +1,7 @@
 baseURL = "https://blog.tux-sudo.com"
 languageCode = "en-us"
 title = "Tux-Sudo"
-theme = "Hucore"
+theme = "hucore"
 disqusShortname = "tux-sudo"
 googleAnalytics = "UA-83389316-1"
 

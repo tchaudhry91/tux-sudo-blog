@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="docker, go, linux, star wars, automation, devops" name="keywords">
+<meta content="Tanmay Chaudhry" name="author">
+<meta property="og:title" content="Go: Spin-Up Databases for CI Testing - Tux-Sudo">
+<meta property="og:url" content="https://blog.tux-sudo.com/posts/ci-docker-dbs/">
+<meta property="og:description" content="#chmod 400 droids_im_looking_for">
+<meta property="og:type" content="website" />
+<title>Go: Spin-Up Databases for CI Testing | Tux-Sudo</title>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<link rel="stylesheet" href="https://blog.tux-sudo.com/css/style.css">
+<link rel="shortcut icon" href="https://blog.tux-sudo.com/favicon.ico">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+</head>
+
+<body>
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.tux-sudo.com"><h1 class="title is-4">Tux-Sudo</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/tchaudhry91" target="_blank">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/Tuxybuzz13" target="_blank">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/" target="_blank">
+            <span class="icon">
+              <i class="fa fa-linkedin"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Go: Spin-Up Databases for CI Testing</h1>
+    <h2 class="subtitle is-5">September 20, 2019 by Tanmay Chaudhry</h2>
+    
+      <div class="tags">
+    
+        <a class="button is-link" href="/tags/docker">docker</a>
+    
+        <a class="button is-link" href="/tags/github">github</a>
+    
+        <a class="button is-link" href="/tags/actions">actions</a>
+    
+        <a class="button is-link" href="/tags/ci">ci</a>
+    
+        <a class="button is-link" href="/tags/go">go</a>
+    
+</div>
+
+    
+    <div class="content">
+      <p>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&rsquo;ve worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.</p>
+
+<p>While taking Bill Kennedy&rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up. See <a href="https://github.com/ardanlabs/service/blob/master/internal/platform/database/databasetest/docker.go">this</a> for reference. I love this approach. It provides a wonderful way to do everything from within <code>go test</code> without meddling with external scripts, thereby providing much greater interoperability. My only gripe with this is the fact that it uses <code>os.exec</code> to command communicate with the docker daemon. The approach is sound, however, I find forking out to use docker-cli to be a bit clunky. Docker&rsquo;s client for go is pretty good and offers imho, a better way to achieve the same. It adds a dependency to the code, however, I believe that is a good thing. The real dependency here is the daemon on the underlying system. Taking a dependency in Go code, makes the management of the API easier and offers more control than relying on the cli api silently. Moreover, if you only use the dependency in your <code>_test.go</code> files, it won&rsquo;t impact the final build binary (or that&rsquo;s my understanding atleast, someone correct me if I&rsquo;m wrong). In most cases the exec approach is perhaps good enough and the right thing to do, but I have an alternative.</p>
+
+<p>Recently, I wrote a small project with a bunch of helpers and an approach to achieve the same using the docker client directly.
+<a href="https://github.com/tchaudhry91/spinme">Spin Me!</a> is a simple tool that can be used to &ldquo;spin up&rdquo; docker database containers followed by auto-configuration, right from within your go code.
+See the example below for <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin#example-Postgres">Postgresql</a>:</p>
+
+<pre><code class="language-go">out, err := spin.Postgres(context.Background(), nil)
+if err != nil {
+    fmt.Println(err)
+    return
+}
+defer spin.SlashID(context.Background(), out.ID)
+// Give postgres a few seconds to boot-up, sadly there is no &quot;ready&quot; check yet
+time.Sleep(5 * time.Second)
+connStr, err := spin.PostgresConnString(out)
+if err != nil {
+    fmt.Println(err)
+    return
+}
+db, err := sql.Open(&quot;postgres&quot;, connStr)
+if err != nil {
+    fmt.Println(err)
+    return
+}
+defer db.Close()
+err = db.Ping()
+if err != nil {
+    fmt.Println(err)
+    return
+}
+fmt.Println(&quot;Connected!&quot;)
+</code></pre>
+
+<p>The above example goes through the entire cycle of going through the entire spin-up, connect, clean-up cycle. See the entire API and more examples here <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin">Go Doc</a>.</p>
+
+<p>Most CI systems ship with an environment that allows applications to create docker containers and this allows <code>go test</code> to spawn it&rsquo;s own database on each integration run in a commpletely clean environment.</p>
+
+<p>As a bonus, the package comes with a small command-line utility to manage containers.</p>
+
+<pre><code class="language-bash">spinme -h
+SpinMe is a wrapper around docker to run common applications.
+  Use this to easily create dependent services such as databases.
+
+Usage:
+  spinme [command]
+
+Available Commands:
+  down        Bring down the given container
+  help        Help about any command
+  status      Status shows the list of all running services spun via spinme
+  up          Start a particular service
+
+Flags:
+      --db string   Database for local storage (default &quot;/home/tchaudhry/.spinme&quot;)
+  -h, --help        help for spinme
+
+Use &quot;spinme [command] --help&quot; for more information about a command.
+</code></pre>
+
+<p>See the project <a href="https://github.com/tchaudhry91/spinme">repo</a> for more details.</p>
+
+<p>Cheers and happy testing.</p>
+
+    </div>
+    
+        <div class="nav-left">
+    <a class="nav-item" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fci-docker-dbs%2f" title="Share on Facebook" target="_blank"><span class="fa fa-facebook fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://plus.google.com/share?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fci-docker-dbs%2f" title="Share on Google+" target="_blank"><span class="fa fa-google-plus fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fci-docker-dbs%2f" title="Share on LinkedIn" target="_blank"><span class="fa fa-linkedin fa-2x" aria-hidden="true"></span></a>
+    <a class="nav-item" href="https://twitter.com/home?status=Go%3a%20Spin-Up%20Databases%20for%20CI%20Testing - https%3a%2f%2fblog.tux-sudo.com%2fposts%2fci-docker-dbs%2f" title="Tweet this" target="_blank"><span class="fa fa-twitter fa-2x"></span></a>
+    <a class="nav-item" href="http://www.reddit.com/submit?url=https%3a%2f%2fblog.tux-sudo.com%2fposts%2fci-docker-dbs%2f&title=Go%3a%20Spin-Up%20Databases%20for%20CI%20Testing" title="Share on Reddit" target="_blank"><span class="fa fa-reddit-alien fa-2x" aria-hidden="true"></span></a>
+    
+    </div>
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js" integrity="sha256-+bhVTaRmJ/c07eV80nU8gD2cBBF0rYkf1txqXlrbvb0=" crossorigin="anonymous"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83389316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+</body>
