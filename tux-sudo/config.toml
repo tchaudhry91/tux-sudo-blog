@@ -1,7 +1,7 @@
 baseURL = "https://blog.tux-sudo.com"
 languageCode = "en-us"
 title = "Tux-Sudo"
-theme = "hucore"
+theme = "kiss"
 disqusShortname = "tux-sudo"
 googleAnalytics = "UA-83389316-1"
 
@@ -15,14 +15,13 @@ keywords = ["docker", "go", "linux", "star wars", "automation", "devops"]
 author = "Tanmay Chaudhry"
 sharingicons = true
 
-[[params.social]]
-url = "https://github.com/tchaudhry91"
-fa_icon = "fa-github"
+[params.sections_left]
+"https://blog.tux-sudo.com" = "#chmod 400 droids_im_looking_for"
 
-[[params.social]]
-url = "https://twitter.com/Tuxybuzz13"
-fa_icon = "fa-twitter"
+[params.social]
+github = "tchaudhry91"
+twitter = "Tuxybuzz13"
+linkedin = "tanmay-chaudhry-72b0b827"
 
-[[params.social]]
-url = "https://www.linkedin.com/in/tanmay-chaudhry-72b0b827/"
-fa_icon = "fa-linkedin"
+[params.social.config]
+platforms = ["github","twitter","linkedin"]
