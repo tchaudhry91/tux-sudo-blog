@@ -7,3 +7,9 @@
 [submodule "tux-sudo/themes/hugo-alageek-theme"]
 	path = tux-sudo/themes/hugo-alageek-theme
 	url = https://github.com/gkmngrgn/hugo-alageek-theme.git
+[submodule "tux-sudo/themes/LoveIt"]
+	path = tux-sudo/themes/LoveIt
+	url = https://github.com/dillonzq/LoveIt.git
+[submodule "tux-sudo/themes/solar-theme-hugo"]
+	path = tux-sudo/themes/solar-theme-hugo
+	url = https://github.com/bake/solar-theme-hugo.git

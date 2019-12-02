@@ -83,8 +83,8 @@
 
       
       <div class="content">
-        One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&rsquo;ve worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.
-While taking Bill Kennedy&rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up.
+        One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I've worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.
+While taking Bill Kennedy's Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up.
         
         ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/ci-docker-dbs/" style="height:28px">
           Read more
@@ -156,7 +156,7 @@ While taking Bill Kennedy&rsquo;s Ultimate Go training a while ago, I saw Bill r
       
       <div class="content">
         This one is a gamechanger. It really is.
-On a recent Golang obsessed Github browsing spree, I read the following project description: &ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&rdquo;. I&rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like this to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!
+On a recent Golang obsessed Github browsing spree, I read the following project description: &ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&rdquo;. I've read that before, and more often than not ended up disappointing myself and resorting to hacks like [this] (https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/) to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!
         
         ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/caddy-autohttps/" style="height:28px">
           Read more
@@ -188,9 +188,7 @@ On a recent Golang obsessed Github browsing spree, I read the following project 
 
       
       <div class="content">
-        I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.
-If you, like me are operating a small time website, you probably don&rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.
-However, integrating certbot to automatically configure my nginx inside a docker container has been a pain.
+        I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.If you, like me are operating a small time website, you probably don't want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.However, integrating certbot to automatically configure my nginx inside a docker container has been a pain. In the past, I generated the standalone cert with &ndash;cert-only and then linked my docker container to use it but this was a far from usable solution given the horrid automation code I had to write.
         
         ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/" style="height:28px">
           Read more

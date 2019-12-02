@@ -82,16 +82,14 @@
 
     
     <div class="content">
-      <p>I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.<br>
-If you, like me are operating a small time website, you probably don&rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, <a href="https://letsencrypt.org">LetsEncrypt</a> provides <strong>free</strong> ssl certificates and is now trusted by most major browsers.<br>
-However, integrating <a href="https://certbot.eff.org/">certbot</a> to automatically configure my nginx inside a docker container has been a pain. In the past, I generated the standalone cert with &ndash;cert-only and then linked my docker container to use it but this was a far from usable solution given the horrid automation code I had to write. <br>
-Recently, I tried to come up with a more automation friendly solution and ended up with the following:<br></p>
-
+      <p>I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.<!-- raw HTML omitted -->
+If you, like me are operating a small time website, you probably don't want to dish out a few hundred dollars for an SSL certificate.Thankfully, <a href="https://letsencrypt.org">LetsEncrypt</a> provides <strong>free</strong> ssl certificates and is now trusted by most major browsers.<!-- raw HTML omitted -->
+However, integrating <a href="https://certbot.eff.org/">certbot</a> to automatically configure my nginx inside a docker container has been a pain. In the past, I generated the standalone cert with &ndash;cert-only and then linked my docker container to use it but this was a far from usable solution given the horrid automation code I had to write. <!-- raw HTML omitted -->
+Recently, I tried to come up with a more automation friendly solution and ended up with the following:<!-- raw HTML omitted --></p>
 <ul>
-<li><p>Custom <strong>nginx image</strong> with certbot pre-installed inside the container. <br></p>
-
+<li>
+<p>Custom <strong>nginx image</strong> with certbot pre-installed inside the container. <!-- raw HTML omitted --></p>
 <p><strong>Dockerfile</strong>:</p>
-
 <pre><code>FROM nginx
 
 RUN apt-get update &amp;&amp; apt-get install -y \
@@ -102,20 +100,15 @@ ADD certify.sh /
 
 RUN chmod +x certify.sh
 
-</code></pre>
-
-<p><strong>certify.sh</strong>:</p>
-
+</code></pre><p><strong>certify.sh</strong>:</p>
 <pre><code>#!/bin/bash
 
 certbot --nginx -d $DOMAIN -m $EMAIL --agree-tos -n --redirect 
-</code></pre>
-
-<p>Github-Source: <a href="https://github.com/tchaudhry91/nginx-certbot-docker">https://github.com/tchaudhry91/nginx-certbot-docker</a><br>
-DockerHub Image: <a href="https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/">https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/</a></p></li>
-
-<li><p>Then I would simply run the container with the following docker-compose block:</p>
-
+</code></pre><p>Github-Source: <a href="https://github.com/tchaudhry91/nginx-certbot-docker">https://github.com/tchaudhry91/nginx-certbot-docker</a><!-- raw HTML omitted -->
+DockerHub Image: <a href="https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/">https://hub.docker.com/r/tchaudhry/nginx-certbot-docker/</a></p>
+</li>
+<li>
+<p>Then I would simply run the container with the following docker-compose block:</p>
 <pre><code>version: '3'
 
 services:
@@ -134,22 +127,19 @@ services:
 
 volumes:
   letsencrypt:
-</code></pre>
-
-<p>An equivalent <code>docker run</code> command would also suffice. But do make note of the <em>enviroment variables</em> and the <em>letsencrypt volume</em>.</p>
-
+</code></pre><p>An equivalent <code>docker run</code> command would also suffice. But do make note of the <em>enviroment variables</em> and the <em>letsencrypt volume</em>.</p>
 <ul>
 <li>The <em>enviroment variables</em> are used to provide information about the domain for which the certificate is to be requested.</li>
 <li>The <em>letsencrypt</em> volume is also essential as this will prevent recertification till the old certificate expires. This can also be a host-mounted directory, however I prefer docker volumes.</li>
-</ul></li>
-
-<li><p>This image does not do ssl yet. Infact, it can be used as a drop in replacement for the regular nginx image. I can &lsquo;certify&rsquo; the container inside it on demand with:<br>
-<code>docker exec container_name /certify.sh</code>
-This command can easily be cron-ed on the base system to re-certify and prevent expired certificates.</p></li>
 </ul>
-
+</li>
+<li>
+<p>This image does not do ssl yet. Infact, it can be used as a drop in replacement for the regular nginx image. I can &lsquo;certify&rsquo; the container inside it on demand with:<!-- raw HTML omitted -->
+<code>docker exec container_name /certify.sh</code>
+This command can easily be cron-ed on the base system to re-certify and prevent expired certificates.</p>
+</li>
+</ul>
 <p><strong>Pitfalls</strong></p>
-
 <ul>
 <li>While this works for now, a true service is most likely going to be load balanced. This approach would require scaling down a single container to ensure the letsencrypt verification passes before certification. The service can then be scaled back up, and given the shared volume, it will work without requiring re-certification.</li>
 </ul>

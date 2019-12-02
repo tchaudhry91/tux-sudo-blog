@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tls on Tux-Sudo</title>
@@ -18,7 +18,7 @@
       
       <guid>https://blog.tux-sudo.com/posts/caddy-autohttps/</guid>
       <description>This one is a gamechanger. It really is.
-On a recent Golang obsessed Github browsing spree, I read the following project description: &amp;ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&amp;rdquo;. I&amp;rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like this to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!</description>
+On a recent Golang obsessed Github browsing spree, I read the following project description: &amp;ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&amp;rdquo;. I&#39;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like [this] (https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/) to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!</description>
     </item>
     
   </channel>

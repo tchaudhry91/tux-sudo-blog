@@ -82,53 +82,45 @@
 
     
     <div class="content">
-      <p>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&rsquo;ve worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.</p>
-
-<p>While taking Bill Kennedy&rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up. See <a href="https://github.com/ardanlabs/service/blob/master/internal/platform/database/databasetest/docker.go">this</a> for reference. I love this approach. It provides a wonderful way to do everything from within <code>go test</code> without meddling with external scripts, thereby providing much greater interoperability. My only gripe with this is the fact that it uses <code>os.exec</code> to command communicate with the docker daemon. The approach is sound, however, I find forking out to use docker-cli to be a bit clunky. Docker&rsquo;s client for go is pretty good and offers imho, a better way to achieve the same. It adds a dependency to the code, however, I believe that is a good thing. The real dependency here is the daemon on the underlying system. Taking a dependency in Go code, makes the management of the API easier and offers more control than relying on the cli api silently. Moreover, if you only use the dependency in your <code>_test.go</code> files, it won&rsquo;t impact the final build binary (or that&rsquo;s my understanding atleast, someone correct me if I&rsquo;m wrong). In most cases the exec approach is perhaps good enough and the right thing to do, but I have an alternative.</p>
-
+      <p>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I've worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.</p>
+<p>While taking Bill Kennedy's Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up. See <a href="https://github.com/ardanlabs/service/blob/master/internal/platform/database/databasetest/docker.go">this</a> for reference. I love this approach. It provides a wonderful way to do everything from within <code>go test</code> without meddling with external scripts, thereby providing much greater interoperability. My only gripe with this is the fact that it uses <code>os.exec</code> to command communicate with the docker daemon. The approach is sound, however, I find forking out to use docker-cli to be a bit clunky. Docker's client for go is pretty good and offers imho, a better way to achieve the same. It adds a dependency to the code, however, I believe that is a good thing. The real dependency here is the daemon on the underlying system. Taking a dependency in Go code, makes the management of the API easier and offers more control than relying on the cli api silently. Moreover, if you only use the dependency in your <code>_test.go</code> files, it won't impact the final build binary (or that's my understanding atleast, someone correct me if I'm wrong). In most cases the exec approach is perhaps good enough and the right thing to do, but I have an alternative.</p>
 <p>Recently, I wrote a small project with a bunch of helpers and an approach to achieve the same using the docker client directly.
 <a href="https://github.com/tchaudhry91/spinme">Spin Me!</a> is a simple tool that can be used to &ldquo;spin up&rdquo; docker database containers followed by auto-configuration, right from within your go code.
 See the example below for <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin#example-Postgres">Postgresql</a>:</p>
-
-<pre><code class="language-go">out, err := spin.Postgres(context.Background(), nil)
-if err != nil {
-    fmt.Println(err)
-    return
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">spin</span>.<span style="color:#a6e22e">Postgres</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#66d9ef">nil</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span>
 }
-defer spin.SlashID(context.Background(), out.ID)
-// Give postgres a few seconds to boot-up, sadly there is no &quot;ready&quot; check yet
-time.Sleep(5 * time.Second)
-connStr, err := spin.PostgresConnString(out)
-if err != nil {
-    fmt.Println(err)
-    return
+<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">spin</span>.<span style="color:#a6e22e">SlashID</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">ID</span>)
+<span style="color:#75715e">// Give postgres a few seconds to boot-up, sadly there is no &#34;ready&#34; check yet
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">5</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+<span style="color:#a6e22e">connStr</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">spin</span>.<span style="color:#a6e22e">PostgresConnString</span>(<span style="color:#a6e22e">out</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span>
 }
-db, err := sql.Open(&quot;postgres&quot;, connStr)
-if err != nil {
-    fmt.Println(err)
-    return
+<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">connStr</span>)
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span>
 }
-defer db.Close()
-err = db.Ping()
-if err != nil {
-    fmt.Println(err)
-    return
+<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
+<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Ping</span>()
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">return</span>
 }
-fmt.Println(&quot;Connected!&quot;)
-</code></pre>
-
-<p>The above example goes through the entire cycle of going through the entire spin-up, connect, clean-up cycle. See the entire API and more examples here <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin">Go Doc</a>.</p>
-
-<p>Most CI systems ship with an environment that allows applications to create docker containers and this allows <code>go test</code> to spawn it&rsquo;s own database on each integration run in a commpletely clean environment.</p>
-
+<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Connected!&#34;</span>)
+</code></pre></div><p>The above example goes through the entire cycle of going through the entire spin-up, connect, clean-up cycle. See the entire API and more examples here <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin">Go Doc</a>.</p>
+<p>Most CI systems ship with an environment that allows applications to create docker containers and this allows <code>go test</code> to spawn it's own database on each integration run in a commpletely clean environment.</p>
 <p>As a bonus, the package comes with a small command-line utility to manage containers.</p>
-
-<pre><code class="language-bash">spinme -h
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">spinme -h
 SpinMe is a wrapper around docker to run common applications.
   Use this to easily create dependent services such as databases.
 
 Usage:
-  spinme [command]
+  spinme <span style="color:#f92672">[</span>command<span style="color:#f92672">]</span>
 
 Available Commands:
   down        Bring down the given container
@@ -137,14 +129,11 @@ Available Commands:
   up          Start a particular service
 
 Flags:
-      --db string   Database for local storage (default &quot;/home/tchaudhry/.spinme&quot;)
-  -h, --help        help for spinme
+      --db string   Database <span style="color:#66d9ef">for</span> local storage <span style="color:#f92672">(</span>default <span style="color:#e6db74">&#34;/home/tchaudhry/.spinme&#34;</span><span style="color:#f92672">)</span>
+  -h, --help        help <span style="color:#66d9ef">for</span> spinme
 
-Use &quot;spinme [command] --help&quot; for more information about a command.
-</code></pre>
-
-<p>See the project <a href="https://github.com/tchaudhry91/spinme">repo</a> for more details.</p>
-
+Use <span style="color:#e6db74">&#34;spinme [command] --help&#34;</span> <span style="color:#66d9ef">for</span> more information about a command.
+</code></pre></div><p>See the project <a href="https://github.com/tchaudhry91/spinme">repo</a> for more details.</p>
 <p>Cheers and happy testing.</p>
 
     </div>

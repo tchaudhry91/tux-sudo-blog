@@ -90,7 +90,7 @@
       
       <div class="content">
         This one is a gamechanger. It really is.
-On a recent Golang obsessed Github browsing spree, I read the following project description: &ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&rdquo;. I&rsquo;ve read that before, and more often than not ended up disappointing myself and resorting to hacks like this to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!
+On a recent Golang obsessed Github browsing spree, I read the following project description: &ldquo;Fast, cross-platform HTTP/2 web server with automatic HTTPS&rdquo;. I've read that before, and more often than not ended up disappointing myself and resorting to hacks like [this] (https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/) to create an automatic TLS system for my websites. There are other ways, but almost all of them were semi-automatic in the long run (yay cron!
         
         ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/caddy-autohttps/" style="height:28px">
           Read more
@@ -122,9 +122,7 @@ On a recent Golang obsessed Github browsing spree, I read the following project 
 
       
       <div class="content">
-        I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.
-If you, like me are operating a small time website, you probably don&rsquo;t want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.
-However, integrating certbot to automatically configure my nginx inside a docker container has been a pain.
+        I like nginx. I like docker. I like SSL. I also like not paying for SSL certificates.If you, like me are operating a small time website, you probably don't want to dish out a few hundred dollars for an SSL certificate.Thankfully, LetsEncrypt provides free ssl certificates and is now trusted by most major browsers.However, integrating certbot to automatically configure my nginx inside a docker container has been a pain. In the past, I generated the standalone cert with &ndash;cert-only and then linked my docker container to use it but this was a far from usable solution given the horrid automation code I had to write.
         
         ...<a class="button is-link" href="https://blog.tux-sudo.com/posts/letsencrypt-nginx-docker/" style="height:28px">
           Read more

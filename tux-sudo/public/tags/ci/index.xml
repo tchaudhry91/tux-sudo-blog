@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ci on Tux-Sudo</title>
@@ -17,8 +17,8 @@
       <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/ci-docker-dbs/</guid>
-      <description>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&amp;rsquo;ve worked with in the past have either mocked responses from a datastore or used a &amp;ldquo;common&amp;rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &amp;ldquo;real&amp;rdquo; datasource, especially for integration tests.
-While taking Bill Kennedy&amp;rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &amp;ldquo;spinning up&amp;rdquo; a database container right from within your test code, run your tests, and clean-up.</description>
+      <description>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&#39;ve worked with in the past have either mocked responses from a datastore or used a &amp;ldquo;common&amp;rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &amp;ldquo;real&amp;rdquo; datasource, especially for integration tests.
+While taking Bill Kennedy&#39;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &amp;ldquo;spinning up&amp;rdquo; a database container right from within your test code, run your tests, and clean-up.</description>
     </item>
     
   </channel>

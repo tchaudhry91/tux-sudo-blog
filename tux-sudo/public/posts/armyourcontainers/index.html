@@ -83,43 +83,29 @@
     
     <div class="content">
       <p>So then, here is the deal. I write tiny microservices that may or may not serve any purpose. Despite how meaningless they might be, I give them the perfect operations treatment.</p>
-
-<p>Here is an example of such a service: <a href="https://github.com/tchaudhry91/hash-svc">hash-svc</a>. At it&rsquo;s core, all it does is take a string and returns it hash.</p>
-
+<p>Here is an example of such a service: [hash-svc] (<a href="https://github.com/tchaudhry91/hash-svc)">https://github.com/tchaudhry91/hash-svc)</a>. At it's core, all it does is take a string and returns it hash.</p>
 <pre><code>tchaudhr:cmd/ (master✗) $ ./hash-svc -serverAddr :12000
 {&quot;addr&quot;:&quot;:12000&quot;,&quot;msg&quot;:&quot;Started HTTP Server&quot;}
 {&quot;err&quot;:null,&quot;input&quot;:&quot;123&quot;,&quot;method&quot;:&quot;hashsha256&quot;,&quot;output&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;,&quot;took&quot;:&quot;41.472µs&quot;}
 
 tchaudhr:~/ $ curl http://localhost:12000/hash\?s\=123                                                                    
 {&quot;v&quot;:&quot;a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3&quot;}
-</code></pre>
-
-<p>Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit. Check the Makefile, Dockerfile and the travis.yml in this <a href="https://github.com/tchaudhry91/hash-svc/tree/a6bccb829f18e6d1f9e6f9592e0700d14ad03f4b">commit</a> to see how I achieved that.</p>
-
-<p>There&rsquo;s a problem. I couldn&rsquo;t run this image on my Pi or new bare metal 2.99$/month ARM server on <a href="https://scaleway.com">scaleway</a>.</p>
-
-<p>Docker officially supports ARMv7, Golang cross-compiles quite well. Shouldn&rsquo;t be that hard.</p>
-
+</code></pre><p>Now, to please my heart, I put this in a container, added a Makefile, hooked up my CI and started pushing out containers with every commit. Check the Makefile, Dockerfile and the travis.yml in this [commit] (<a href="https://github.com/tchaudhry91/hash-svc/tree/a6bccb829f18e6d1f9e6f9592e0700d14ad03f4b">https://github.com/tchaudhry91/hash-svc/tree/a6bccb829f18e6d1f9e6f9592e0700d14ad03f4b</a>) to see how I achieved that.</p>
+<p>There's a problem. I couldn't run this image on my Pi or new bare metal 2.99$/month ARM server on [scaleway] (<a href="https://scaleway.com)">https://scaleway.com)</a>.</p>
+<p>Docker officially supports ARMv7, Golang cross-compiles quite well. Shouldn't be that hard.</p>
 <p>First up, modify the Dockerfile to cross-build for ARM instead.</p>
-
 <pre><code>ENV     CGO_ENABLED=0
 ENV     GOOS=linux
 ENV     GOARCH=arm
-</code></pre>
-
-<p>This should now produce binaries that would run on ARMv7-linux (i.e RaspberryPi). CGO is disabled by default when cross-compiling, but in a multi-stage docker build it can cause problems, so we disable it for the non-ARM version as well.</p>
-
+</code></pre><p>This should now produce binaries that would run on ARMv7-linux (i.e RaspberryPi). CGO is disabled by default when cross-compiling, but in a multi-stage docker build it can cause problems, so we disable it for the non-ARM version as well.</p>
 <p>Next up, modify the final image to be ARM compliant.
-Replace <code>FROM alpine</code> with an ARM-based image like <a href="https://hub.docker.com/r/arm32v7/ubuntu/">arm32v7/ubuntu</a> or the more lightweight <code>FROM hypriot/rpi-alpine</code> from the guys over at <a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">Hypriot</a></p>
-
-<p>Add the targets to the <a href="https://github.com/tchaudhry91/hash-svc/blob/master/Makefile">Makefile</a> and now you should have a build mechanism for ARM containers.
+Replace <code>FROM alpine</code> with an ARM-based image like <a href="https://hub.docker.com/r/arm32v7/ubuntu/">arm32v7/ubuntu</a> or the more lightweight <code>FROM hypriot/rpi-alpine</code> from the guys over at [Hypriot] (<a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/</a>)</p>
+<p>Add the targets to the [Makefile] (<a href="https://github.com/tchaudhry91/hash-svc/blob/master/Makefile">https://github.com/tchaudhry91/hash-svc/blob/master/Makefile</a>) and now you should have a build mechanism for ARM containers.
 There is, however, one problem. While the service itself is cross-compiled and runs on ARM, the final image builder that we use also uses other commands to prepare the image. An example would be <code>RUN apk update &amp;&amp; apk add --no-cache ca-certificates</code>. This command fails to run on my x86 machine because <code>apk</code> itself is an ARM binary.
-This means we need a processor emulator to be able to build them on TravisCI. Fortunately, the cool guys at <a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">Hypriot</a> have documented an easy method to get that done. Read the blog in full if you need more details, but here the command you need to run in your travis.yml to get this to work.</p>
-
+This means we need a processor emulator to be able to build them on TravisCI. Fortunately, the cool guys at [Hypriot] (<a href="https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/">https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/</a>) have documented an easy method to get that done. Read the blog in full if you need more details, but here the command you need to run in your travis.yml to get this to work.</p>
 <p><code>docker run --rm --privileged multiarch/qemu-user-static:register --reset</code></p>
-
 <p>This will register the QEMU processor emulator for the ARM binaries (via binfmt_misc).
-And that&rsquo;s all, custom service containers on your Pi! You can check out the full code over here in this <a href="https://github.com/tchaudhry91/hash-svc">repo</a></p>
+And that's all, custom service containers on your Pi! You can check out the full code over here in this [repo] (<a href="https://github.com/tchaudhry91/hash-svc">https://github.com/tchaudhry91/hash-svc</a>)</p>
     </div>
     
         <div class="nav-left">
