@@ -13,3 +13,6 @@
 [submodule "tux-sudo/themes/solar-theme-hugo"]
 	path = tux-sudo/themes/solar-theme-hugo
 	url = https://github.com/bake/solar-theme-hugo.git
+[submodule "tux-sudo/themes/beautifulhugo"]
+	path = tux-sudo/themes/beautifulhugo
+	url = https://github.com/halogenica/beautifulhugo.git
