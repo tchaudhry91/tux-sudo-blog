@@ -8,7 +8,17 @@
   </url>
   
   <url>
+    <loc>https://blog.tux-sudo.com/categories/</loc>
+    <lastmod>2019-09-20T06:19:22+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.tux-sudo.com/tags/ci/</loc>
+    <lastmod>2019-09-20T06:19:22+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/categories/development/</loc>
     <lastmod>2019-09-20T06:19:22+00:00</lastmod>
   </url>
   
@@ -54,11 +64,6 @@
   
   <url>
     <loc>https://blog.tux-sudo.com/posts/armyourcontainers/</loc>
-    <lastmod>2018-03-19T11:52:57+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/categories/</loc>
     <lastmod>2018-03-19T11:52:57+05:30</lastmod>
   </url>
   

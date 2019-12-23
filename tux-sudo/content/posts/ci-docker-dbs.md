@@ -2,7 +2,7 @@
 title: "Go: Spin-Up Databases for CI Testing"
 date: 2019-09-20T06:19:22Z
 tags: ["docker", "github", "actions", "ci", "go"]
-ccategories: ["Development"]
+categories: ["Development"]
 project_url: "https://github.com/tchaudhry91/spinme"
 ---
 
