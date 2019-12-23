@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Sep 2019 06:19:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Dec 2019 05:32:57 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,63 @@
     <item>
       <title>actions</title>
       <link>https://blog.tux-sudo.com/tags/actions/</link>
-      <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/tags/actions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://blog.tux-sudo.com/tags/github/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://blog.tux-sudo.com/tags/go/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://blog.tux-sudo.com/tags/golang/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>goreleaser</title>
+      <link>https://blog.tux-sudo.com/tags/goreleaser/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/goreleaser/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sonar</title>
+      <link>https://blog.tux-sudo.com/tags/sonar/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/sonar/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>taskfile</title>
+      <link>https://blog.tux-sudo.com/tags/taskfile/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/tags/taskfile/</guid>
       <description></description>
     </item>
     
@@ -39,38 +93,11 @@
     </item>
     
     <item>
-      <title>github</title>
-      <link>https://blog.tux-sudo.com/tags/github/</link>
-      <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/tags/github/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://blog.tux-sudo.com/tags/go/</link>
-      <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>arm</title>
       <link>https://blog.tux-sudo.com/tags/arm/</link>
       <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/tags/arm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://blog.tux-sudo.com/tags/golang/</link>
-      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/tags/golang/</guid>
       <description></description>
     </item>
     

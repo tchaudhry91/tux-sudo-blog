@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Go: Useful Development Workflows | Tux-Sudo</title>
+
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://blog.tux-sudo.com/posts/golang-github-actions/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://blog.tux-sudo.com">
+          <h1 id="nav-heading" class="title is-4">Tux-Sudo</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/tchaudhry91'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/Tuxybuzz13'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/tanmay-chaudhry-72b0b827'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+      <div class="nav-left"><a class="nav-item" href="https://blog.tux-sudo.com">
+          <h2 class="title is-5">#chmod 400 droids_im_looking_for</h2>
+        </a></div>
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/github">#github</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/go">#go</a>
+  
+  | <a class="subtitle is-6" href="/tags/golang">#golang</a>
+  
+  | <a class="subtitle is-6" href="/tags/actions">#actions</a>
+  
+  | <a class="subtitle is-6" href="/tags/goreleaser">#goreleaser</a>
+  
+  | <a class="subtitle is-6" href="/tags/taskfile">#taskfile</a>
+  
+  | <a class="subtitle is-6" href="/tags/sonar">#sonar</a>
+  
+
+      
+    </div>
+    <h2 class="subtitle is-6">December 23, 2019</h2>
+    <h1 class="title">Go: Useful Development Workflows</h1>
+    
+    <div class="content">
+      <p>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn't going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds. But with practically everything available as a SaaS (and in most cases, free for open source projects), I had no excuse anymore.
+Travis/Circle/GitlabCI/AzurePipelines etc. were already quite common and with GitHub's entry into the fray, there really is no reason not to have atleast a simple CI workflow on your project.</p>
+<p>What I want to talk about in this post however, is about going beyond the regular build and test workflow. Most of the steps below can be extrapolated to pretty much any language, but I'll primarily be operating with Go. All the tools highlighted below cost nothing to operate on open source projects and require no self-hosting.</p>
+<h3 id="build-automation-tool">Build Automation Tool</h3>
+<p>Pretty straight forward. If you like writing Makefiles, go ahead and treat yourself. I personally don't. I have a new favourite in <a href="https://taskfile.dev">Task</a>. It feels very clean and simple. Ships as a single binary and can be easily put inside any public CI system.
+Here's a sample <code>Taskfile</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#75715e"># https://taskfile.dev</span>
+
+version: <span style="color:#e6db74">&#34;2&#34;</span>
+
+tasks:
+  build-client:
+    cmds:
+      - mkdir release || <span style="color:#66d9ef">true</span>
+      - go build -o release/bottle-cli ./cmd/client
+  build-server:
+    cmds:
+      - mkdir release || <span style="color:#66d9ef">true</span>
+      - go build -o release/crate ./cmd/server
+  build:
+    cmds:
+      - task: build-server
+      - task: build-client
+  test:
+    cmds:
+      - go fmt ./...
+      - golangci-lint run
+      - go test -v ./...
+  sonar:
+    cmds:
+      - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+</code></pre></div><p>Pretty easy to tell what is going on here. The tasks can then simple be run like <code>task build</code>. Again, if you'd like to stick to Make or any other language specific tool, do that instead.</p>
+<h3 id="static-analysis--code-quality">Static Analysis / Code Quality</h3>
+<p>Lots of candidates here. I'm going to highlight <a href="https://sonarcloud.io/about">SonarCloud</a>. Again, totally free for open source projects and has been a common feature of companies I've worked with.
+You need to install the sonar-scanner to be able to scan your projects. This is easily doable on most CI systems (see example later for GitHub Actions) and a simple configuration file which resembles:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e"># Organization and project keys are displayed in the right sidebar of the project homepage</span>
+<span style="color:#a6e22e">sonar.organization</span><span style="color:#f92672">=</span><span style="color:#e6db74">tchaudhry91-github</span>
+<span style="color:#a6e22e">sonar.projectKey</span><span style="color:#f92672">=</span><span style="color:#e6db74">tchaudhry91_bottle</span>
+<span style="color:#a6e22e">sonar.host.url</span><span style="color:#f92672">=</span><span style="color:#e6db74">https://sonarcloud.io</span>
+
+<span style="color:#a6e22e">sonar.exclusions</span><span style="color:#f92672">=</span><span style="color:#e6db74">crate/pb/crate.pb.go</span>
+</code></pre></div><p>You can setup the organization, projectKey and a grab a sonar token on <a href="https://sonarcloud.io">https://sonarcloud.io</a>.</p>
+<p>I'm not going to go deep into all the things you can do with Sonar, but it's really easy to get started and get some nice quality gates and badges set-up.</p>
+<p>Other quality/linting checks tools can also be integrated as required. <a href="https://github.com/golangci/golangci-lint">GolangCI-Lint</a> is another quite nice tool that I use in most of my repos. See example <a href="https://github.com/tchaudhry91/bottle/blob/master/.golangci.yml">here</a>.</p>
+<h3 id="releases">Releases</h3>
+<p>This, I'm going to deliberately keep language specific because of how widely it varies. In short, I've never had to look beyond <a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> for Go. This directly creates a github release based on git tags and also compiles binaries for specified platforms. Lots of knobs available to tweak, but something basic as below should suffice in most cases:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># This is an example goreleaser.yaml file with some sane defaults.</span>
+<span style="color:#75715e"># Make sure to check the documentation at http://goreleaser.com</span>
+before:
+  hooks:
+    <span style="color:#75715e"># you may remove this if you don&#39;t use vgo</span>
+    - go mod tidy
+    <span style="color:#75715e"># you may remove this if you don&#39;t need go generate</span>
+    - go generate ./...
+builds:
+  - id: <span style="color:#e6db74">&#34;crate&#34;</span>
+    main: ./cmd/server/main.go
+    binary: crate
+    env:
+      - CGO_ENABLED=<span style="color:#ae81ff">0</span>
+  - id: <span style="color:#e6db74">&#34;bottle&#34;</span>
+    main: ./cmd/client/main.go
+    binary: bottle
+    env:
+      - CGO_ENABLED=<span style="color:#ae81ff">0</span>
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      <span style="color:#ae81ff">386</span>: i386
+      amd64: x86_64
+checksum:
+  name_template: <span style="color:#e6db74">&#34;checksums.txt&#34;</span>
+snapshot:
+  name_template: <span style="color:#e6db74">&#34;{{ .Tag }}-next&#34;</span>
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - <span style="color:#e6db74">&#34;^docs:&#34;</span>
+      - <span style="color:#e6db74">&#34;^test:&#34;</span>
+</code></pre></div><p>Now, we'll trigger the release whenever a Git tag resembling &ldquo;v*&rdquo; gets pushed.</p>
+<h2 id="bind-it-together">Bind it together</h2>
+<p>I'm going to use the example of <a href="https://github.com/tchaudhry91/bottle">this project</a> that I started a while ago. We'll see here how to tie up all the tools discussed above and have GitHub actions do it's job.</p>
+<p>I'm going to be writing two distinct workflows. The <code>CI workflow</code> that runs on every push/pull request and does all the quality checks and tests. Additionally, there will be a <code>release workflow</code> that will be run only when a specific tag gets pushed.</p>
+<p>CI Workflow</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">name: CI
+on: [push, pull_request]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: <span style="color:#e6db74">&#34;1.13&#34;</span>
+      - run: curl -sL https://taskfile.dev/install.sh | sh
+      - run: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21</span><span style="color:#ae81ff">.0</span>
+      - name: Test
+        run: ./bin/task test
+        env:
+          PATH: $PATH:./bin
+          CGO_ENABLED: <span style="color:#ae81ff">0</span>
+      - name: Build
+        run: ./bin/task build
+        env:
+          CGO_ENABLED: <span style="color:#ae81ff">0</span>
+      - name: Sonar Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+</code></pre></div><p>and a similar Release workflow but with a different <code>on</code> condition:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">name: Release
+on:
+  push:
+    tags:
+      - <span style="color:#e6db74">&#34;v*&#34;</span>
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: curl -sL https://taskfile.dev/install.sh | sh
+      - run: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21</span><span style="color:#ae81ff">.0</span>
+      - run: curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+      - name: Test
+        run: ./bin/task test
+        env:
+          PATH: $PATH:./bin
+          CGO_ENABLED: <span style="color:#ae81ff">0</span>
+      - name: Build
+        run: ./bin/task build
+        env:
+          CGO_ENABLED: <span style="color:#ae81ff">0</span>
+      - name: Sonar Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        run: ./bin/goreleaser
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+</code></pre></div><p>Supply the <code>SONARY_TOKEN</code> secret under your github project settings, add both these files into your <code>.github/workflows</code> directory and see the magic happen!</p>
+<p>There's a lot more you can do with your workflows. Security scans, deployments, perhaps anicillary build and test services (see <a href="https://blog.tux-sudo.com/posts/ci-docker-dbs/">this</a> post for more details on how to spin databases for testing in CIs). Lots of possibilities and not a $ spent. Have fun!</p>
+
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83389316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>
+

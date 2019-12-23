@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>goreleaser on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/tags/goreleaser/</link>
+    <description>Recent content in goreleaser on Tux-Sudo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Dec 2019 05:32:57 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.tux-sudo.com/tags/goreleaser/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go: Useful Development Workflows</title>
+      <link>https://blog.tux-sudo.com/posts/golang-github-actions/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/golang-github-actions/</guid>
+      <description>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn&#39;t going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds.</description>
+    </item>
+    
+  </channel>
+</rss>

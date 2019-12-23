@@ -6,7 +6,7 @@
     <description>Recent content in Categories on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Sep 2019 06:19:22 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Dec 2019 05:32:57 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,18 @@
     <item>
       <title>Development</title>
       <link>https://blog.tux-sudo.com/categories/development/</link>
-      <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ops</title>
+      <link>https://blog.tux-sudo.com/categories/ops/</link>
+      <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/ops/</guid>
       <description></description>
     </item>
     
@@ -26,15 +35,6 @@
       <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/categories/dev/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ops</title>
-      <link>https://blog.tux-sudo.com/categories/ops/</link>
-      <pubDate>Mon, 19 Mar 2018 11:52:57 +0530</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/categories/ops/</guid>
       <description></description>
     </item>
     
