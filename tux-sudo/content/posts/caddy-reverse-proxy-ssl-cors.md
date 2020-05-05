@@ -8,7 +8,7 @@ I've always been a big fan of [Caddy](https://caddyserver.com/), and it just got
 
 So, here's the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Ofcourse, I'll celebrate Caddy's 2nd birth and write a simple Caddyfile.
 
-```yaml
+```bash
 archy.tux-sudo.com
 
 reverse_proxy /* 127.0.0.1:15999
@@ -23,7 +23,7 @@ I can easily use `https://archy.tux-sudo.com` for my API using my command line. 
 
 Ugh. No, my service doesn't do this and I'm happy to keep it that way. BUT Caddy can help. Have a look at my updated Caddyfile:
 
-```json
+```bash
 archy.tux-sudo.com
 
 @entries_options {
