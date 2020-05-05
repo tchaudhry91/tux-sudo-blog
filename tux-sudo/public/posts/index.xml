@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Dec 2019 05:32:57 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2020 09:43:52 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Easy SSL Termination - CORS Edition</title>
+      <link>https://blog.tux-sudo.com/posts/caddy-reverse-proxy-ssl-cors/</link>
+      <pubDate>Tue, 05 May 2020 09:43:52 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/caddy-reverse-proxy-ssl-cors/</guid>
+      <description>I&#39;ve always been a big fan of Caddy, and it just got a 2.0 release! In the meantime, I have developed another throwaway service called Archy, and naturally, it deserves the best Ops can offer.
+So, here&#39;s the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Ofcourse, I&#39;ll celebrate Caddy&#39;s 2nd birth and write a simple Caddyfile.
+archy.tux-sudo.com reverse_proxy /* 127.</description>
+    </item>
     
     <item>
       <title>Go: Useful Development Workflows</title>

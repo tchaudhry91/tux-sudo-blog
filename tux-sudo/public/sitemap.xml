@@ -3,17 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.tux-sudo.com/tags/actions/</loc>
-    <lastmod>2019-12-23T05:32:57+00:00</lastmod>
+    <loc>https://blog.tux-sudo.com/categories/caddy/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.tux-sudo.com/categories/</loc>
-    <lastmod>2019-12-23T05:32:57+00:00</lastmod>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/categories/cors/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.tux-sudo.com/categories/development/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/posts/caddy-reverse-proxy-ssl-cors/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/categories/ops/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/posts/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/categories/ssl/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/</loc>
+    <lastmod>2020-05-05T09:43:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/tags/actions/</loc>
     <lastmod>2019-12-23T05:32:57+00:00</lastmod>
   </url>
   
@@ -43,16 +78,6 @@
   </url>
   
   <url>
-    <loc>https://blog.tux-sudo.com/categories/ops/</loc>
-    <lastmod>2019-12-23T05:32:57+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/posts/</loc>
-    <lastmod>2019-12-23T05:32:57+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.tux-sudo.com/tags/sonar/</loc>
     <lastmod>2019-12-23T05:32:57+00:00</lastmod>
   </url>
@@ -64,11 +89,6 @@
   
   <url>
     <loc>https://blog.tux-sudo.com/tags/taskfile/</loc>
-    <lastmod>2019-12-23T05:32:57+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/</loc>
     <lastmod>2019-12-23T05:32:57+00:00</lastmod>
   </url>
   
