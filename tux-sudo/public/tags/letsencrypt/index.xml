@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>letsencrypt on Tux-Sudo</title>
+    <title>LetsEncrypt on Tux-Sudo</title>
     <link>https://blog.tux-sudo.com/tags/letsencrypt/</link>
-    <description>Recent content in letsencrypt on Tux-Sudo</description>
+    <description>Recent content in LetsEncrypt on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Feb 2018 11:01:54 +0530</lastBuildDate>
