@@ -1,7 +1,7 @@
 ---
 title: "Azure SDK Go"
 date: 2020-05-18T11:06:04Z
-draft: true
+draft: false
 tags: ["azure", "development", "go", "cloud"]
 categories: ["Development"]
 ---

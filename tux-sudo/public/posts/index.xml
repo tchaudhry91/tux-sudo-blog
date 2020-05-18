@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 May 2020 09:43:52 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 11:06:04 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Azure SDK Go</title>
+      <link>https://blog.tux-sudo.com/posts/azure-sdk-go/</link>
+      <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/azure-sdk-go/</guid>
+      <description>So, I&#39;ve recently had to work with the Azure-SDK for a few small tasks. I&#39;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&#39;t too hard to figure them out. Azure wasn&#39;t quite the same.
+Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple VM listing to work. The Authentication docs seemed fairly straight forward.</description>
+    </item>
     
     <item>
       <title>Easy SSL Termination - CORS Edition</title>

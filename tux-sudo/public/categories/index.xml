@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 May 2020 09:43:52 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 11:06:04 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Development</title>
+      <link>https://blog.tux-sudo.com/categories/development/</link>
+      <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/development/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Caddy</title>
@@ -26,15 +35,6 @@
       <pubDate>Tue, 05 May 2020 09:43:52 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/categories/cors/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Development</title>
-      <link>https://blog.tux-sudo.com/categories/development/</link>
-      <pubDate>Tue, 05 May 2020 09:43:52 +0000</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/categories/development/</guid>
       <description></description>
     </item>
     

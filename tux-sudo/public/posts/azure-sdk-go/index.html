@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Azure SDK Go | Tux-Sudo</title>
+
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://blog.tux-sudo.com/posts/azure-sdk-go/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://blog.tux-sudo.com">
+          <h1 id="nav-heading" class="title is-4">Tux-Sudo</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/tchaudhry91'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/Tuxybuzz13'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/tanmay-chaudhry-72b0b827'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+      <div class="nav-left"><a class="nav-item" href="https://blog.tux-sudo.com">
+          <h2 class="title is-5">#chmod 400 droids_im_looking_for</h2>
+        </a></div>
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/azure">#azure</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/development">#development</a>
+  
+  | <a class="subtitle is-6" href="/tags/go">#go</a>
+  
+  | <a class="subtitle is-6" href="/tags/cloud">#cloud</a>
+  
+
+      
+    </div>
+    <h2 class="subtitle is-6">May 18, 2020</h2>
+    <h1 class="title">Azure SDK Go</h1>
+    
+    <div class="content">
+      <p>So, I've recently had to work with the <a href="https://github.com/Azure/azure-sdk-for-go">Azure-SDK</a> for a few small tasks. I've worked with AWS and GCP SDKs before, and while they have their problems it wasn't too hard to figure them out. Azure wasn't quite the same.</p>
+<p>Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple VM listing to work. The <a href="https://github.com/Azure/azure-sdk-for-go#authentication">Authentication</a> docs seemed fairly straight forward. I just need my credentials now. Okay, google, tell me how to do that. I read the official docs and they did not seem very easy to navigate. Eventually, I figured it out. Here's the gist of it for anyone still wondering:</p>
+<ul>
+<li>Navigate to <code>App Registrations</code> in the Portal and create a new one.</li>
+<li>Find the newly created &ldquo;App&rdquo; and look for <code>Certificates and Secrets</code> in the left sidebar.</li>
+<li>You can create a <code>+ New Client Secret</code> from here and that should give you what you need to get started.</li>
+</ul>
+<p>Hang on though, what about RBAC? Yes, so the roles need to be managed from a totally different place. The &ldquo;App&rdquo; is essentially considered a User. So here's what you need to assign a proper role:</p>
+<ul>
+<li>Navigate to the <code>Subscriptions</code> panel on the portal and select the subscription you want to work with.</li>
+<li>Again, on the left sidebar you should see <code>Access Control (IAM)</code>. Here you can create a new Role or use a Built-In and assign it to the &ldquo;App&rdquo; in the <code>Role Assignments</code> tab.</li>
+</ul>
+<p>Fairly more complex than anything I've encountered earlier. Perhaps I'll appreciate the benefit for the workflow as I work more with it.</p>
+<p>The rest was fairly straightforward, except the GoDoc. Despite the <a href="https://godoc.org/github.com/Azure/azure-sdk-for-go">GoDoc</a> being more polluted than my eyes could handle, I stuck with it and eventually figured out the basics. Just <code>ctrl + f</code> your way through it. Here's a small example I used to list the VMs in our account:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;context&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/Azure/azure-sdk-for-go/profiles/2019-03-01/compute/mgmt/compute&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/Azure/go-autorest/autorest/azure/auth&#34;</span>
+)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subscriptionID</span> = <span style="color:#e6db74">&#34;find-your-own&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">authorizer</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">auth</span>.<span style="color:#a6e22e">NewAuthorizerFromEnvironment</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#a6e22e">vmClient</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">compute</span>.<span style="color:#a6e22e">NewVirtualMachinesClient</span>(<span style="color:#a6e22e">subscriptionID</span>)
+	<span style="color:#a6e22e">vmClient</span>.<span style="color:#a6e22e">Authorizer</span> = <span style="color:#a6e22e">authorizer</span>
+	<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#ae81ff">100</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+	<span style="color:#a6e22e">results</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">vmClient</span>.<span style="color:#a6e22e">ListAllComplete</span>(<span style="color:#a6e22e">ctx</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">NotDone</span>() {
+		<span style="color:#a6e22e">vm</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Value</span>()
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">vm</span>.<span style="color:#a6e22e">ID</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">results</span>.<span style="color:#a6e22e">Next</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			panic(<span style="color:#a6e22e">err</span>)
+		}
+	}
+}
+</code></pre></div><p>Now, while this works, it wasn't before I ran into another problem with version mismatches. I hadn't defined version in my <code>go.mod</code> and that seemed to trip things. So, go ahead declare the versions manually. It's something I'd normally do anyway, but not while testing things out. After some rather unhelpful compilation failures and dives into GitHub issues, it was fixed by declaring the dependency explicitly.</p>
+
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83389316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>
+
