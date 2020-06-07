@@ -17,7 +17,7 @@
       <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/azure-sdk-go/</guid>
-      <description>So, I&#39;ve recently had to work with the Azure-SDK for a few small tasks. I&#39;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&#39;t too hard to figure them out. Azure wasn&#39;t quite the same.
+      <description>So, I&amp;rsquo;ve recently had to work with the Azure-SDK for a few small tasks. I&amp;rsquo;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&amp;rsquo;t too hard to figure them out. Azure wasn&amp;rsquo;t quite the same.
 Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple VM listing to work. The Authentication docs seemed fairly straight forward.</description>
     </item>
     
@@ -27,7 +27,7 @@ Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple
       <pubDate>Mon, 23 Dec 2019 05:32:57 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/golang-github-actions/</guid>
-      <description>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn&#39;t going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds.</description>
+      <description>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn&amp;rsquo;t going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds.</description>
     </item>
     
     <item>
@@ -36,8 +36,8 @@ Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple
       <pubDate>Fri, 20 Sep 2019 06:19:22 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/ci-docker-dbs/</guid>
-      <description>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&#39;ve worked with in the past have either mocked responses from a datastore or used a &amp;ldquo;common&amp;rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &amp;ldquo;real&amp;rdquo; datasource, especially for integration tests.
-While taking Bill Kennedy&#39;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &amp;ldquo;spinning up&amp;rdquo; a database container right from within your test code, run your tests, and clean-up.</description>
+      <description>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&amp;rsquo;ve worked with in the past have either mocked responses from a datastore or used a &amp;ldquo;common&amp;rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &amp;ldquo;real&amp;rdquo; datasource, especially for integration tests.
+While taking Bill Kennedy&amp;rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &amp;ldquo;spinning up&amp;rdquo; a database container right from within your test code, run your tests, and clean-up.</description>
     </item>
     
   </channel>

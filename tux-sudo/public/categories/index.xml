@@ -6,7 +6,7 @@
     <description>Recent content in Categories on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 May 2020 11:06:04 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2020 09:33:15 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,36 @@
     <item>
       <title>Development</title>
       <link>https://blog.tux-sudo.com/categories/development/</link>
-      <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
+      <pubDate>Sun, 07 Jun 2020 09:33:15 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://blog.tux-sudo.com/categories/go/</link>
+      <pubDate>Sun, 07 Jun 2020 09:33:15 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorial</title>
+      <link>https://blog.tux-sudo.com/categories/tutorial/</link>
+      <pubDate>Sun, 07 Jun 2020 09:33:15 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webservice</title>
+      <link>https://blog.tux-sudo.com/categories/webservice/</link>
+      <pubDate>Sun, 07 Jun 2020 09:33:15 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/categories/webservice/</guid>
       <description></description>
     </item>
     

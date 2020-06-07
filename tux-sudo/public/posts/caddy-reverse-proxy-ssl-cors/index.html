@@ -80,18 +80,18 @@
     <h1 class="title">Easy SSL Termination - CORS Edition</h1>
     
     <div class="content">
-      <p>I've always been a big fan of <a href="https://caddyserver.com/">Caddy</a>, and it just got a 2.0 release! In the meantime, I have developed another throwaway service called <a href="https://github.com/tchaudhry91/archy">Archy</a>, and naturally, it deserves the best Ops can offer.</p>
-<p>So, here's the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Ofcourse, I'll celebrate Caddy's 2nd birth and write a simple Caddyfile.</p>
+      <p>I&rsquo;ve always been a big fan of <a href="https://caddyserver.com/">Caddy</a>, and it just got a 2.0 release! In the meantime, I have developed another throwaway service called <a href="https://github.com/tchaudhry91/archy">Archy</a>, and naturally, it deserves the best Ops can offer.</p>
+<p>So, here&rsquo;s the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Of course, I&rsquo;ll celebrate Caddy&rsquo;s 2nd birth and write a simple Caddyfile.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">archy.tux-sudo.com
 
 reverse_proxy /* 127.0.0.1:15999
 </code></pre></div><p>Done. Cool. See you later.</p>
-<p>I can easily use <code>https://archy.tux-sudo.com</code> for my API using my command line. Everyone (only me) is happy. A cocunut fell on my head and I decided to venture into the marvellous world of Javascript. I'll build myselfs a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it's not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn't want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:</p>
+<p>I can easily use <code>https://archy.tux-sudo.com</code> for my API using my command line. Everyone (only me) is happy. A coconut fell on my head and I decided to venture into the marvellous world of Javascript. I&rsquo;ll build myself a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it&rsquo;s not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn&rsquo;t want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:</p>
 <ul>
 <li>My service needs to add Access-Control Headers</li>
 <li>My service needs to respond 200 to OPTIONS on a particular path.</li>
 </ul>
-<p>Ugh. No, my service doesn't do this and I'm happy to keep it that way. BUT Caddy can help. Have a look at my updated Caddyfile:</p>
+<p>Ugh. No, my service doesn&rsquo;t do this and I&rsquo;m happy to keep it that way. BUT Caddy can help. Have a look at my updated Caddyfile:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">archy.tux-sudo.com
 
 @entries_options <span style="color:#f92672">{</span>
@@ -109,7 +109,7 @@ respond @entries_options <span style="color:#ae81ff">200</span>
 
 reverse_proxy /* 127.0.0.1:15999 <span style="color:#f92672">{</span>
 <span style="color:#f92672">}</span>
-</code></pre></div><p>Use the appropriate headers of course and not &ldquo;*&quot;, but you get the point. This achieves both. I've added headers to be put on my final response and it's also handling the OPTIONS call on <code>/entries</code> using my <code>@entries_options</code> matcher properly. My service has no idea. Now, I'm sure Nginx or similar might be able to do this as well. But the level of power and clarity in this config is unparalleled imho. Wishing Caddy many many happy years ahead.</p>
+</code></pre></div><p>Use the appropriate headers of course and not &ldquo;*&rdquo;, but you get the point. This achieves both. I&rsquo;ve added headers to be put on my final response and it&rsquo;s also handling the OPTIONS call on <code>/entries</code> using my <code>@entries_options</code> matcher properly. My service has no idea. Now, I&rsquo;m sure Nginx or similar might be able to do this as well. But the level of power and clarity in this config is unparalleled imho. Wishing Caddy many many happy years ahead.</p>
 
       
     </div>

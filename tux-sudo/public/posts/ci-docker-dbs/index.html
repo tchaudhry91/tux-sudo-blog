@@ -76,19 +76,20 @@
     <div class="subtitle tags is-6 is-pulled-right">
       
       
-<a class="subtitle is-6" href="/tags/docker">#docker</a>
+<a class="subtitle is-6" href="/tags/docker/">#docker</a>
 
 
 
   
-  | <a class="subtitle is-6" href="/tags/github">#github</a>
+  | <a class="subtitle is-6" href="/tags/github/">#github</a>
   
-  | <a class="subtitle is-6" href="/tags/actions">#actions</a>
+  | <a class="subtitle is-6" href="/tags/actions/">#actions</a>
   
-  | <a class="subtitle is-6" href="/tags/ci">#ci</a>
+  | <a class="subtitle is-6" href="/tags/ci/">#ci</a>
   
-  | <a class="subtitle is-6" href="/tags/go">#go</a>
+  | <a class="subtitle is-6" href="/tags/go/">#go</a>
   
+
 
       
     </div>
@@ -96,8 +97,8 @@
     <h1 class="title">Go: Spin-Up Databases for CI Testing</h1>
     
     <div class="content">
-      <p>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I've worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.</p>
-<p>While taking Bill Kennedy's Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up. See <a href="https://github.com/ardanlabs/service/blob/master/internal/platform/database/databasetest/docker.go">this</a> for reference. I love this approach. It provides a wonderful way to do everything from within <code>go test</code> without meddling with external scripts, thereby providing much greater interoperability. My only gripe with this is the fact that it uses <code>os.exec</code> to command communicate with the docker daemon. The approach is sound, however, I find forking out to use docker-cli to be a bit clunky. Docker's client for go is pretty good and offers imho, a better way to achieve the same. It adds a dependency to the code, however, I believe that is a good thing. The real dependency here is the daemon on the underlying system. Taking a dependency in Go code, makes the management of the API easier and offers more control than relying on the cli api silently. Moreover, if you only use the dependency in your <code>_test.go</code> files, it won't impact the final build binary (or that's my understanding atleast, someone correct me if I'm wrong). In most cases the exec approach is perhaps good enough and the right thing to do, but I have an alternative.</p>
+      <p>One thing has always bothered me while writing tests is the lack of a real datasource to run tests against. Most projects I&rsquo;ve worked with in the past have either mocked responses from a datastore or used a &ldquo;common&rdquo; datastore to perform tests against. While mocks are good for quick unit tests, I still prefer using a &ldquo;real&rdquo; datasource, especially for integration tests.</p>
+<p>While taking Bill Kennedy&rsquo;s Ultimate Go training a while ago, I saw Bill recommend a testing approach which involved &ldquo;spinning up&rdquo; a database container right from within your test code, run your tests, and clean-up. See <a href="https://github.com/ardanlabs/service/blob/master/internal/platform/database/databasetest/docker.go">this</a> for reference. I love this approach. It provides a wonderful way to do everything from within <code>go test</code> without meddling with external scripts, thereby providing much greater interoperability. My only gripe with this is the fact that it uses <code>os.exec</code> to command communicate with the docker daemon. The approach is sound, however, I find forking out to use docker-cli to be a bit clunky. Docker&rsquo;s client for go is pretty good and offers imho, a better way to achieve the same. It adds a dependency to the code, however, I believe that is a good thing. The real dependency here is the daemon on the underlying system. Taking a dependency in Go code, makes the management of the API easier and offers more control than relying on the cli api silently. Moreover, if you only use the dependency in your <code>_test.go</code> files, it won&rsquo;t impact the final build binary (or that&rsquo;s my understanding atleast, someone correct me if I&rsquo;m wrong). In most cases the exec approach is perhaps good enough and the right thing to do, but I have an alternative.</p>
 <p>Recently, I wrote a small project with a bunch of helpers and an approach to achieve the same using the docker client directly.
 <a href="https://github.com/tchaudhry91/spinme">Spin Me!</a> is a simple tool that can be used to &ldquo;spin up&rdquo; docker database containers followed by auto-configuration, right from within your go code.
 See the example below for <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin#example-Postgres">Postgresql</a>:</p>
@@ -127,7 +128,7 @@ See the example below for <a href="https://godoc.org/github.com/tchaudhry91/spin
 }
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Connected!&#34;</span>)
 </code></pre></div><p>The above example goes through the entire cycle of going through the entire spin-up, connect, clean-up cycle. See the entire API and more examples here <a href="https://godoc.org/github.com/tchaudhry91/spinme/spin">Go Doc</a>.</p>
-<p>Most CI systems ship with an environment that allows applications to create docker containers and this allows <code>go test</code> to spawn it's own database on each integration run in a commpletely clean environment.</p>
+<p>Most CI systems ship with an environment that allows applications to create docker containers and this allows <code>go test</code> to spawn it&rsquo;s own database on each integration run in a commpletely clean environment.</p>
 <p>As a bonus, the package comes with a small command-line utility to manage containers.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">spinme -h
 SpinMe is a wrapper around docker to run common applications.

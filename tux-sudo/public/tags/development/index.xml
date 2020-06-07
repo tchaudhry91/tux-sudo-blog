@@ -17,7 +17,7 @@
       <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/azure-sdk-go/</guid>
-      <description>So, I&#39;ve recently had to work with the Azure-SDK for a few small tasks. I&#39;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&#39;t too hard to figure them out. Azure wasn&#39;t quite the same.
+      <description>So, I&amp;rsquo;ve recently had to work with the Azure-SDK for a few small tasks. I&amp;rsquo;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&amp;rsquo;t too hard to figure them out. Azure wasn&amp;rsquo;t quite the same.
 Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple VM listing to work. The Authentication docs seemed fairly straight forward.</description>
     </item>
     

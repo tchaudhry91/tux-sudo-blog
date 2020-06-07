@@ -17,8 +17,8 @@
       <pubDate>Tue, 05 May 2020 09:43:52 +0000</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/caddy-reverse-proxy-ssl-cors/</guid>
-      <description>I&#39;ve always been a big fan of Caddy, and it just got a 2.0 release! In the meantime, I have developed another throwaway service called Archy, and naturally, it deserves the best Ops can offer.
-So, here&#39;s the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Ofcourse, I&#39;ll celebrate Caddy&#39;s 2nd birth and write a simple Caddyfile.
+      <description>I&amp;rsquo;ve always been a big fan of Caddy, and it just got a 2.0 release! In the meantime, I have developed another throwaway service called Archy, and naturally, it deserves the best Ops can offer.
+So, here&amp;rsquo;s the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Of course, I&amp;rsquo;ll celebrate Caddy&amp;rsquo;s 2nd birth and write a simple Caddyfile.
 archy.tux-sudo.com reverse_proxy /* 127.</description>
     </item>
     

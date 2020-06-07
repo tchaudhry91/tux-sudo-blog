@@ -76,23 +76,24 @@
     <div class="subtitle tags is-6 is-pulled-right">
       
       
-<a class="subtitle is-6" href="/tags/github">#github</a>
+<a class="subtitle is-6" href="/tags/github/">#github</a>
 
 
 
   
-  | <a class="subtitle is-6" href="/tags/go">#go</a>
+  | <a class="subtitle is-6" href="/tags/go/">#go</a>
   
-  | <a class="subtitle is-6" href="/tags/golang">#golang</a>
+  | <a class="subtitle is-6" href="/tags/golang/">#golang</a>
   
-  | <a class="subtitle is-6" href="/tags/actions">#actions</a>
+  | <a class="subtitle is-6" href="/tags/actions/">#actions</a>
   
-  | <a class="subtitle is-6" href="/tags/goreleaser">#goreleaser</a>
+  | <a class="subtitle is-6" href="/tags/goreleaser/">#goreleaser</a>
   
-  | <a class="subtitle is-6" href="/tags/taskfile">#taskfile</a>
+  | <a class="subtitle is-6" href="/tags/taskfile/">#taskfile</a>
   
-  | <a class="subtitle is-6" href="/tags/sonar">#sonar</a>
+  | <a class="subtitle is-6" href="/tags/sonar/">#sonar</a>
   
+
 
       
     </div>
@@ -100,40 +101,40 @@
     <h1 class="title">Go: Useful Development Workflows</h1>
     
     <div class="content">
-      <p>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn't going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds. But with practically everything available as a SaaS (and in most cases, free for open source projects), I had no excuse anymore.
-Travis/Circle/GitlabCI/AzurePipelines etc. were already quite common and with GitHub's entry into the fray, there really is no reason not to have atleast a simple CI workflow on your project.</p>
-<p>What I want to talk about in this post however, is about going beyond the regular build and test workflow. Most of the steps below can be extrapolated to pretty much any language, but I'll primarily be operating with Go. All the tools highlighted below cost nothing to operate on open source projects and require no self-hosting.</p>
+      <p>Code Coverage, Static Code Analysis, Tests, Releases? What else? Probably a few more things, but you get the point. These are all things that are expected to be part of a modern day development workflow. While this is becoming the norm in companies, a lot of pet open-source projects still skimp on these things. And frankly, I did too. I wasn&rsquo;t going to bother hosting my own Jenkins behemoth just so my soon-to-be abandoned project could run a few builds. But with practically everything available as a SaaS (and in most cases, free for open source projects), I had no excuse anymore.
+Travis/Circle/GitlabCI/AzurePipelines etc. were already quite common and with GitHub&rsquo;s entry into the fray, there really is no reason not to have atleast a simple CI workflow on your project.</p>
+<p>What I want to talk about in this post however, is about going beyond the regular build and test workflow. Most of the steps below can be extrapolated to pretty much any language, but I&rsquo;ll primarily be operating with Go. All the tools highlighted below cost nothing to operate on open source projects and require no self-hosting.</p>
 <h3 id="build-automation-tool">Build Automation Tool</h3>
-<p>Pretty straight forward. If you like writing Makefiles, go ahead and treat yourself. I personally don't. I have a new favourite in <a href="https://taskfile.dev">Task</a>. It feels very clean and simple. Ships as a single binary and can be easily put inside any public CI system.
-Here's a sample <code>Taskfile</code>:</p>
+<p>Pretty straight forward. If you like writing Makefiles, go ahead and treat yourself. I personally don&rsquo;t. I have a new favourite in <a href="https://taskfile.dev">Task</a>. It feels very clean and simple. Ships as a single binary and can be easily put inside any public CI system.
+Here&rsquo;s a sample <code>Taskfile</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#75715e"># https://taskfile.dev</span>
 
-version: <span style="color:#e6db74">&#34;2&#34;</span>
+<span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#34;2&#34;</span>
 
-tasks:
-  build-client:
-    cmds:
+<span style="color:#66d9ef">tasks</span>:
+  <span style="color:#66d9ef">build-client</span>:
+    <span style="color:#66d9ef">cmds</span>:
       - mkdir release || <span style="color:#66d9ef">true</span>
       - go build -o release/bottle-cli ./cmd/client
-  build-server:
-    cmds:
+  <span style="color:#66d9ef">build-server</span>:
+    <span style="color:#66d9ef">cmds</span>:
       - mkdir release || <span style="color:#66d9ef">true</span>
       - go build -o release/crate ./cmd/server
-  build:
-    cmds:
-      - task: build-server
-      - task: build-client
-  test:
-    cmds:
+  <span style="color:#66d9ef">build</span>:
+    <span style="color:#66d9ef">cmds</span>:
+      - <span style="color:#66d9ef">task</span>: build-server
+      - <span style="color:#66d9ef">task</span>: build-client
+  <span style="color:#66d9ef">test</span>:
+    <span style="color:#66d9ef">cmds</span>:
       - go fmt ./...
       - golangci-lint run
       - go test -v ./...
-  sonar:
-    cmds:
+  <span style="color:#66d9ef">sonar</span>:
+    <span style="color:#66d9ef">cmds</span>:
       - sonar-scanner -Dsonar.login=$SONAR_TOKEN
-</code></pre></div><p>Pretty easy to tell what is going on here. The tasks can then simple be run like <code>task build</code>. Again, if you'd like to stick to Make or any other language specific tool, do that instead.</p>
+</code></pre></div><p>Pretty easy to tell what is going on here. The tasks can then simple be run like <code>task build</code>. Again, if you&rsquo;d like to stick to Make or any other language specific tool, do that instead.</p>
 <h3 id="static-analysis--code-quality">Static Analysis / Code Quality</h3>
-<p>Lots of candidates here. I'm going to highlight <a href="https://sonarcloud.io/about">SonarCloud</a>. Again, totally free for open source projects and has been a common feature of companies I've worked with.
+<p>Lots of candidates here. I&rsquo;m going to highlight <a href="https://sonarcloud.io/about">SonarCloud</a>. Again, totally free for open source projects and has been a common feature of companies I&rsquo;ve worked with.
 You need to install the sonar-scanner to be able to scan your projects. This is easily doable on most CI systems (see example later for GitHub Actions) and a simple configuration file which resembles:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e"># Organization and project keys are displayed in the right sidebar of the project homepage</span>
 <span style="color:#a6e22e">sonar.organization</span><span style="color:#f92672">=</span><span style="color:#e6db74">tchaudhry91-github</span>
@@ -142,115 +143,115 @@ You need to install the sonar-scanner to be able to scan your projects. This is 
 
 <span style="color:#a6e22e">sonar.exclusions</span><span style="color:#f92672">=</span><span style="color:#e6db74">crate/pb/crate.pb.go</span>
 </code></pre></div><p>You can setup the organization, projectKey and a grab a sonar token on <a href="https://sonarcloud.io">https://sonarcloud.io</a>.</p>
-<p>I'm not going to go deep into all the things you can do with Sonar, but it's really easy to get started and get some nice quality gates and badges set-up.</p>
+<p>I&rsquo;m not going to go deep into all the things you can do with Sonar, but it&rsquo;s really easy to get started and get some nice quality gates and badges set-up.</p>
 <p>Other quality/linting checks tools can also be integrated as required. <a href="https://github.com/golangci/golangci-lint">GolangCI-Lint</a> is another quite nice tool that I use in most of my repos. See example <a href="https://github.com/tchaudhry91/bottle/blob/master/.golangci.yml">here</a>.</p>
 <h3 id="releases">Releases</h3>
-<p>This, I'm going to deliberately keep language specific because of how widely it varies. In short, I've never had to look beyond <a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> for Go. This directly creates a github release based on git tags and also compiles binaries for specified platforms. Lots of knobs available to tweak, but something basic as below should suffice in most cases:</p>
+<p>This, I&rsquo;m going to deliberately keep language specific because of how widely it varies. In short, I&rsquo;ve never had to look beyond <a href="https://github.com/goreleaser/goreleaser">GoReleaser</a> for Go. This directly creates a github release based on git tags and also compiles binaries for specified platforms. Lots of knobs available to tweak, but something basic as below should suffice in most cases:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># This is an example goreleaser.yaml file with some sane defaults.</span>
 <span style="color:#75715e"># Make sure to check the documentation at http://goreleaser.com</span>
-before:
-  hooks:
+<span style="color:#66d9ef">before</span>:
+  <span style="color:#66d9ef">hooks</span>:
     <span style="color:#75715e"># you may remove this if you don&#39;t use vgo</span>
     - go mod tidy
     <span style="color:#75715e"># you may remove this if you don&#39;t need go generate</span>
     - go generate ./...
-builds:
-  - id: <span style="color:#e6db74">&#34;crate&#34;</span>
-    main: ./cmd/server/main.go
-    binary: crate
-    env:
+<span style="color:#66d9ef">builds</span>:
+  - <span style="color:#66d9ef">id</span>: <span style="color:#e6db74">&#34;crate&#34;</span>
+    <span style="color:#66d9ef">main</span>: ./cmd/server/main.go
+    <span style="color:#66d9ef">binary</span>: crate
+    <span style="color:#66d9ef">env</span>:
       - CGO_ENABLED=<span style="color:#ae81ff">0</span>
-  - id: <span style="color:#e6db74">&#34;bottle&#34;</span>
-    main: ./cmd/client/main.go
-    binary: bottle
-    env:
+  - <span style="color:#66d9ef">id</span>: <span style="color:#e6db74">&#34;bottle&#34;</span>
+    <span style="color:#66d9ef">main</span>: ./cmd/client/main.go
+    <span style="color:#66d9ef">binary</span>: bottle
+    <span style="color:#66d9ef">env</span>:
       - CGO_ENABLED=<span style="color:#ae81ff">0</span>
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      <span style="color:#ae81ff">386</span>: i386
-      amd64: x86_64
-checksum:
-  name_template: <span style="color:#e6db74">&#34;checksums.txt&#34;</span>
-snapshot:
-  name_template: <span style="color:#e6db74">&#34;{{ .Tag }}-next&#34;</span>
-changelog:
-  sort: asc
-  filters:
-    exclude:
+<span style="color:#66d9ef">archives</span>:
+  - <span style="color:#66d9ef">replacements</span>:
+      <span style="color:#66d9ef">darwin</span>: Darwin
+      <span style="color:#66d9ef">linux</span>: Linux
+      <span style="color:#66d9ef">windows</span>: Windows
+      <span style="color:#66d9ef">386</span>: i386
+      <span style="color:#66d9ef">amd64</span>: x86_64
+<span style="color:#66d9ef">checksum</span>:
+  <span style="color:#66d9ef">name_template</span>: <span style="color:#e6db74">&#34;checksums.txt&#34;</span>
+<span style="color:#66d9ef">snapshot</span>:
+  <span style="color:#66d9ef">name_template</span>: <span style="color:#e6db74">&#34;{{ .Tag }}-next&#34;</span>
+<span style="color:#66d9ef">changelog</span>:
+  <span style="color:#66d9ef">sort</span>: asc
+  <span style="color:#66d9ef">filters</span>:
+    <span style="color:#66d9ef">exclude</span>:
       - <span style="color:#e6db74">&#34;^docs:&#34;</span>
       - <span style="color:#e6db74">&#34;^test:&#34;</span>
-</code></pre></div><p>Now, we'll trigger the release whenever a Git tag resembling &ldquo;v*&rdquo; gets pushed.</p>
+</code></pre></div><p>Now, we&rsquo;ll trigger the release whenever a Git tag resembling &ldquo;v*&rdquo; gets pushed.</p>
 <h2 id="bind-it-together">Bind it together</h2>
-<p>I'm going to use the example of <a href="https://github.com/tchaudhry91/bottle">this project</a> that I started a while ago. We'll see here how to tie up all the tools discussed above and have GitHub actions do it's job.</p>
-<p>I'm going to be writing two distinct workflows. The <code>CI workflow</code> that runs on every push/pull request and does all the quality checks and tests. Additionally, there will be a <code>release workflow</code> that will be run only when a specific tag gets pushed.</p>
+<p>I&rsquo;m going to use the example of <a href="https://github.com/tchaudhry91/bottle">this project</a> that I started a while ago. We&rsquo;ll see here how to tie up all the tools discussed above and have GitHub actions do it&rsquo;s job.</p>
+<p>I&rsquo;m going to be writing two distinct workflows. The <code>CI workflow</code> that runs on every push/pull request and does all the quality checks and tests. Additionally, there will be a <code>release workflow</code> that will be run only when a specific tag gets pushed.</p>
 <p>CI Workflow</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">name: CI
-on: [push, pull_request]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">name</span>: CI
+<span style="color:#66d9ef">on</span>: [push, pull_request]
 
-jobs:
-  ci:
-    name: CI
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-go@v1
-        with:
-          go-version: <span style="color:#e6db74">&#34;1.13&#34;</span>
-      - run: curl -sL https://taskfile.dev/install.sh | sh
-      - run: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21</span><span style="color:#ae81ff">.0</span>
-      - name: Test
-        run: ./bin/task test
-        env:
-          PATH: $PATH:./bin
-          CGO_ENABLED: <span style="color:#ae81ff">0</span>
-      - name: Build
-        run: ./bin/task build
-        env:
-          CGO_ENABLED: <span style="color:#ae81ff">0</span>
-      - name: Sonar Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">ci</span>:
+    <span style="color:#66d9ef">name</span>: CI
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">uses</span>: actions/checkout@v1
+      - <span style="color:#66d9ef">uses</span>: actions/setup-go@v1
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">go-version</span>: <span style="color:#e6db74">&#34;1.13&#34;</span>
+      - <span style="color:#66d9ef">run</span>: curl -sL https://taskfile.dev/install.sh | sh
+      - <span style="color:#66d9ef">run</span>: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21.0</span>
+      - <span style="color:#66d9ef">name</span>: Test
+        <span style="color:#66d9ef">run</span>: ./bin/task test
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">PATH</span>: $PATH:./bin
+          <span style="color:#66d9ef">CGO_ENABLED</span>: <span style="color:#ae81ff">0</span>
+      - <span style="color:#66d9ef">name</span>: Build
+        <span style="color:#66d9ef">run</span>: ./bin/task build
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">CGO_ENABLED</span>: <span style="color:#ae81ff">0</span>
+      - <span style="color:#66d9ef">name</span>: Sonar Scan
+        <span style="color:#66d9ef">uses</span>: sonarsource/sonarcloud-github-action@master
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">SONAR_TOKEN</span>: ${{ secrets.SONAR_TOKEN }}
+          <span style="color:#66d9ef">GITHUB_TOKEN</span>: ${{ secrets.GITHUB_TOKEN }}
 </code></pre></div><p>and a similar Release workflow but with a different <code>on</code> condition:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">name: Release
-on:
-  push:
-    tags:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">name</span>: Release
+<span style="color:#66d9ef">on</span>:
+  <span style="color:#66d9ef">push</span>:
+    <span style="color:#66d9ef">tags</span>:
       - <span style="color:#e6db74">&#34;v*&#34;</span>
 
-jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - run: curl -sL https://taskfile.dev/install.sh | sh
-      - run: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21</span><span style="color:#ae81ff">.0</span>
-      - run: curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
-      - name: Test
-        run: ./bin/task test
-        env:
-          PATH: $PATH:./bin
-          CGO_ENABLED: <span style="color:#ae81ff">0</span>
-      - name: Build
-        run: ./bin/task build
-        env:
-          CGO_ENABLED: <span style="color:#ae81ff">0</span>
-      - name: Sonar Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Release
-        run: ./bin/goreleaser
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">release</span>:
+    <span style="color:#66d9ef">name</span>: Release
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">uses</span>: actions/checkout@v1
+      - <span style="color:#66d9ef">run</span>: curl -sL https://taskfile.dev/install.sh | sh
+      - <span style="color:#66d9ef">run</span>: curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s v1<span style="color:#ae81ff">.21.0</span>
+      - <span style="color:#66d9ef">run</span>: curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh
+      - <span style="color:#66d9ef">name</span>: Test
+        <span style="color:#66d9ef">run</span>: ./bin/task test
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">PATH</span>: $PATH:./bin
+          <span style="color:#66d9ef">CGO_ENABLED</span>: <span style="color:#ae81ff">0</span>
+      - <span style="color:#66d9ef">name</span>: Build
+        <span style="color:#66d9ef">run</span>: ./bin/task build
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">CGO_ENABLED</span>: <span style="color:#ae81ff">0</span>
+      - <span style="color:#66d9ef">name</span>: Sonar Scan
+        <span style="color:#66d9ef">uses</span>: sonarsource/sonarcloud-github-action@master
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">SONAR_TOKEN</span>: ${{ secrets.SONAR_TOKEN }}
+          <span style="color:#66d9ef">GITHUB_TOKEN</span>: ${{ secrets.GITHUB_TOKEN }}
+      - <span style="color:#66d9ef">name</span>: Release
+        <span style="color:#66d9ef">run</span>: ./bin/goreleaser
+        <span style="color:#66d9ef">env</span>:
+          <span style="color:#66d9ef">GITHUB_TOKEN</span>: ${{ secrets.GITHUB_TOKEN }}
 </code></pre></div><p>Supply the <code>SONARY_TOKEN</code> secret under your github project settings, add both these files into your <code>.github/workflows</code> directory and see the magic happen!</p>
-<p>There's a lot more you can do with your workflows. Security scans, deployments, perhaps anicillary build and test services (see <a href="https://blog.tux-sudo.com/posts/ci-docker-dbs/">this</a> post for more details on how to spin databases for testing in CIs). Lots of possibilities and not a $ spent. Have fun!</p>
+<p>There&rsquo;s a lot more you can do with your workflows. Security scans, deployments, perhaps anicillary build and test services (see <a href="https://blog.tux-sudo.com/posts/ci-docker-dbs/">this</a> post for more details on how to spin databases for testing in CIs). Lots of possibilities and not a $ spent. Have fun!</p>
 
       
     </div>

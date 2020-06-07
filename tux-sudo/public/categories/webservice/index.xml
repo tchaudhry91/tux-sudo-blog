@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webservice on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/categories/webservice/</link>
+    <description>Recent content in webservice on Tux-Sudo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Jun 2020 09:33:15 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.tux-sudo.com/categories/webservice/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Production Grade Web Services with Go - The Beginning</title>
+      <link>https://blog.tux-sudo.com/posts/production-grade-svc-1/</link>
+      <pubDate>Sun, 07 Jun 2020 09:33:15 +0000</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/production-grade-svc-1/</guid>
+      <description>Production Grade is a term thrown around a lot these days. Every organization seems to have it&amp;rsquo;s own definition for what qualifies as &amp;ldquo;Production Grade&amp;rdquo; or &amp;ldquo;Production Ready&amp;rdquo;. In these series of posts, I&amp;rsquo;m going to present my take on the topic and the bare minimum of what I think qualifies under this definition. These posts assume a working knowledge of Go and are not meant for total beginners to the language.</description>
+    </item>
+    
+  </channel>
+</rss>

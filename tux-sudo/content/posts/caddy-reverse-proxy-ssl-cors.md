@@ -6,7 +6,7 @@ categories: ["Ops", "Development", "CORS", "Caddy", "SSL"]
 
 I've always been a big fan of [Caddy](https://caddyserver.com/), and it just got a 2.0 release! In the meantime, I have developed another throwaway service called [Archy](https://github.com/tchaudhry91/archy), and naturally, it deserves the best Ops can offer.
 
-So, here's the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Ofcourse, I'll celebrate Caddy's 2nd birth and write a simple Caddyfile.
+So, here's the scenario. I need a simple HTTPS service exposed to the world. I have a VPS with a public IP. Of course, I'll celebrate Caddy's 2nd birth and write a simple Caddyfile.
 
 ```bash
 archy.tux-sudo.com
@@ -16,7 +16,7 @@ reverse_proxy /* 127.0.0.1:15999
 
 Done. Cool. See you later.
 
-I can easily use `https://archy.tux-sudo.com` for my API using my command line. Everyone (only me) is happy. A cocunut fell on my head and I decided to venture into the marvellous world of Javascript. I'll build myself a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it's not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn't want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:
+I can easily use `https://archy.tux-sudo.com` for my API using my command line. Everyone (only me) is happy. A coconut fell on my head and I decided to venture into the marvellous world of Javascript. I'll build myself a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it's not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn't want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:
 
 - My service needs to add Access-Control Headers
 - My service needs to respond 200 to OPTIONS on a particular path.
