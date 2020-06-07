@@ -16,7 +16,7 @@ reverse_proxy /* 127.0.0.1:15999
 
 Done. Cool. See you later.
 
-I can easily use `https://archy.tux-sudo.com` for my API using my command line. Everyone (only me) is happy. A cocunut fell on my head and I decided to venture into the marvellous world of Javascript. I'll build myselfs a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it's not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn't want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:
+I can easily use `https://archy.tux-sudo.com` for my API using my command line. Everyone (only me) is happy. A cocunut fell on my head and I decided to venture into the marvellous world of Javascript. I'll build myself a UI. Why not? Really though, why? Nevertheless, the age old developer horror story of having to resolve CORS struck. Now, it's not my first time, I know what CORS is, how it works etc etc. But my service was released, I didn't want to go back and make changes in there (see, already thrown away). Now, I need to solve the following problems:
 
 - My service needs to add Access-Control Headers
 - My service needs to respond 200 to OPTIONS on a particular path.
