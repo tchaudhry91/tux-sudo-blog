@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>development on Tux-Sudo</title>
-    <link>https://blog.tux-sudo.com/tags/development/</link>
-    <description>Recent content in development on Tux-Sudo</description>
+    <title>webservice on Tux-Sudo</title>
+    <link>https://blog.tux-sudo.com/tags/webservice/</link>
+    <description>Recent content in webservice on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 08 Jun 2020 12:16:15 +0530</lastBuildDate>
     
-	<atom:link href="https://blog.tux-sudo.com/tags/development/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.tux-sudo.com/tags/webservice/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -28,16 +28,6 @@ The previous post ended with a defined structured for our service and some basic
       
       <guid>https://blog.tux-sudo.com/posts/production-grade-svc-1/</guid>
       <description>Production Grade is a term thrown around a lot these days. Every organization seems to have it&amp;rsquo;s own definition for what qualifies as &amp;ldquo;Production Grade&amp;rdquo; or &amp;ldquo;Production Ready&amp;rdquo;. In these series of posts, I&amp;rsquo;m going to present my take on the topic and the bare minimum of what I think qualifies under this definition. These posts assume a working knowledge of Go and are not meant for total beginners to the language.</description>
-    </item>
-    
-    <item>
-      <title>Azure SDK Go</title>
-      <link>https://blog.tux-sudo.com/posts/azure-sdk-go/</link>
-      <pubDate>Mon, 18 May 2020 11:06:04 +0000</pubDate>
-      
-      <guid>https://blog.tux-sudo.com/posts/azure-sdk-go/</guid>
-      <description>So, I&amp;rsquo;ve recently had to work with the Azure-SDK for a few small tasks. I&amp;rsquo;ve worked with AWS and GCP SDKs before, and while they have their problems it wasn&amp;rsquo;t too hard to figure them out. Azure wasn&amp;rsquo;t quite the same.
-Now, I am new to Azure, but I did not expect to spend 30 minutes to get a simple VM listing to work. The Authentication docs seemed fairly straight forward.</description>
     </item>
     
   </channel>

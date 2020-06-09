@@ -1,7 +1,8 @@
 ---
 title: "Production Grade Web Services with Go - The Service"
 date: 2020-06-07T09:33:15Z
-categories: ["development", "go", "webservice", "tutorial"]
+tags: ["development", "go", "webservice", "tutorial"]
+categories: ["Development"]
 ---
 
 Production Grade is a term thrown around a lot these days. Every organization seems to have it's own definition for what qualifies as "Production Grade" or "Production Ready". In these series of posts, I'm going to present my take on the topic and the bare minimum of what I think qualifies under this definition. These posts assume a working knowledge of Go and are not meant for total beginners to the language.

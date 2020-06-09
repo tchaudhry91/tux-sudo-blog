@@ -13,7 +13,12 @@
   </url>
   
   <url>
-    <loc>https://blog.tux-sudo.com/categories/go/</loc>
+    <loc>https://blog.tux-sudo.com/tags/development/</loc>
+    <lastmod>2020-06-08T12:16:15+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/tags/go/</loc>
     <lastmod>2020-06-08T12:16:15+05:30</lastmod>
   </url>
   
@@ -28,7 +33,12 @@
   </url>
   
   <url>
-    <loc>https://blog.tux-sudo.com/categories/tutorial/</loc>
+    <loc>https://blog.tux-sudo.com/tags/</loc>
+    <lastmod>2020-06-08T12:16:15+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.tux-sudo.com/tags/tutorial/</loc>
     <lastmod>2020-06-08T12:16:15+05:30</lastmod>
   </url>
   
@@ -38,7 +48,7 @@
   </url>
   
   <url>
-    <loc>https://blog.tux-sudo.com/categories/webservice/</loc>
+    <loc>https://blog.tux-sudo.com/tags/webservice/</loc>
     <lastmod>2020-06-08T12:16:15+05:30</lastmod>
   </url>
   
@@ -59,21 +69,6 @@
   
   <url>
     <loc>https://blog.tux-sudo.com/tags/cloud/</loc>
-    <lastmod>2020-05-18T11:06:04+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/tags/development/</loc>
-    <lastmod>2020-05-18T11:06:04+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/tags/go/</loc>
-    <lastmod>2020-05-18T11:06:04+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.tux-sudo.com/tags/</loc>
     <lastmod>2020-05-18T11:06:04+00:00</lastmod>
   </url>
   
