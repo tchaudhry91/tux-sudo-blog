@@ -1,5 +1,5 @@
 ---
-title: "Production Grade Web Services with Go - The Beginning"
+title: "Production Grade Web Services with Go - The Service"
 date: 2020-06-07T09:33:15Z
 categories: ["development", "go", "webservice", "tutorial"]
 ---
@@ -148,5 +148,8 @@ func TestServiceHashReverse(t *testing.T) {
 You can see a couple of methods with some Table driven tests. The first method `TestServiceHash` passes but the second one `TestServiceReverseHash` fails as expected. our goal will now be to fix this method so that these tests pass. Hence, TDD.
 
 This is a good stopping point and we'll pick-up in the following post for more! Find the entire code tree at this point here: [GITHUB - TREE](https://github.com/tchaudhry91/rainbow/tree/a926df8d502dead516929efbecb72f624649aa96)
+
+
+Edit: Part 2 is up [here](/posts/production-grade-svc-2/)!
 
 ---
