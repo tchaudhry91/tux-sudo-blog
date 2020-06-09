@@ -1,7 +1,7 @@
 ---
 title: "Production Grade Web Services with Go - The Store"
 date: 2020-06-08T12:16:15+05:30
-draft: true
+categories: ["development", "go", "webservice", "tutorial"]
 ---
 
 Note : This is part two of a series of posts describing how to write "Production Grade Webservice in Go". Here's [Part - 1, The Service ](/posts/production-grade-svc-1/) if you haven't read it.
