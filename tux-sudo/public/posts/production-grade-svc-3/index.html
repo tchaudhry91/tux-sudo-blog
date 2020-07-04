@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en-us">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Production Grade Web Service with Go - Transports | Tux-Sudo</title>
+
+
+
+<link rel="stylesheet" href="/css/style.css"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://blog.tux-sudo.com/posts/production-grade-svc-3/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://blog.tux-sudo.com">
+          <h1 id="nav-heading" class="title is-4">Tux-Sudo</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"><a class="level-item" aria-label="github" href='https://github.com/tchaudhry91'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="twitter" href='https://twitter.com/Tuxybuzz13'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+    
+  </svg></i>
+            </span>
+          </a><a class="level-item" aria-label="linkedin" href='https://linkedin.com/in/tanmay-chaudhry-72b0b827'
+            target='_blank' rel='noopener'>
+            <span class="icon">
+              <i class><svg viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+    
+    <path stroke-width="1.8" d="m5.839218,4.101561c0,1.211972 -0.974141,2.194011 -2.176459,2.194011s-2.176459,-0.982039 -2.176459,-2.194011c0,-1.211094 0.974141,-2.194011 2.176459,-2.194011s2.176459,0.982917 2.176459,2.194011zm0.017552,3.94922l-4.388022,0l0,14.04167l4.388022,0l0,-14.04167zm7.005038,0l-4.359939,0l0,14.04167l4.360816,0l0,-7.370999c0,-4.098413 5.291077,-4.433657 5.291077,0l0,7.370999l4.377491,0l0,-8.89101c0,-6.915523 -7.829986,-6.66365 -9.669445,-3.259423l0,-1.891237z"/>
+    
+  </svg></i>
+            </span>
+          </a></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+      <div class="nav-left"><a class="nav-item" href="https://blog.tux-sudo.com">
+          <h2 class="title is-5">#chmod 400 droids_im_looking_for</h2>
+        </a></div>
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+      
+<a class="subtitle is-6" href="/tags/development/">#development</a>
+
+
+
+  
+  | <a class="subtitle is-6" href="/tags/go/">#go</a>
+  
+  | <a class="subtitle is-6" href="/tags/webservice/">#webservice</a>
+  
+  | <a class="subtitle is-6" href="/tags/tutorial/">#tutorial</a>
+  
+
+
+      
+    </div>
+    <h2 class="subtitle is-6">July 4, 2020</h2>
+    <h1 class="title">Production Grade Web Service with Go - Transports</h1>
+    
+    <div class="content">
+      <p>Note : This is part two of a series of posts describing how to write &ldquo;Production Grade Webservice in Go&rdquo;. Here&rsquo;s <a href="/posts/production-grade-svc-1/">Part - 1, The Service </a> and <a href="/posts/production-grade-svc-2">Part - 2 The Store </a> if you haven&rsquo;t read those.</p>
+<p>We&rsquo;ve reached a point where we have properly laid out the business logic and the storage implementation for our service. Now, we&rsquo;re going to move on and talk about <strong>transports</strong>. As the name suggests, a transport is essentially transporting data over the network in a pre-defined format. JSON over HTTP is one such transport. gRPC is another. We&rsquo;re going to start with JSON over HTTP simply because of how popular it is. I may write a separate post that adds a gRPC transport to this very service later, but for now, HTTP-JSON.</p>
+<p>Go comes with a very nice and usable HTTP server right out of the box. We&rsquo;ll use the server that <code>net/http</code> provides us with a third-party router (<code>gorilla/mux</code>) from some added features.</p>
+<p>Let&rsquo;s define a struct that&rsquo;s going to hold all of this together. The bare-minimum looks something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// RainbowHTTP is an HTTP server for the underlying RainbowService
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RainbowHTTP</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">svc</span>    <span style="color:#a6e22e">RainbowService</span>
+	<span style="color:#a6e22e">server</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>
+	<span style="color:#a6e22e">router</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">Router</span>
+}
+</code></pre></div><p>The business-logic is contained in <code>svc</code>. The <code>server</code> is the actual HTTP Server from the <code>net/http</code> package. And finally, we&rsquo;ve got our router from <code>gorilla/mux</code>.
+I&rsquo;m sure you&rsquo;ve noticed that this is where our service goes from a Go interface to a <strong>webservice</strong>. The transport is going to glue all the things together and do the proper plumbing.</p>
+<p>Alright, let&rsquo;s define some methods to deal with HTTP requests. In Go, a method that follows the signature <code>func(w http.ResponseWriter, r *http.Request)</code> is potentially capable of serving web requests. Read more about it <a href="https://golang.org/pkg/net/http/#HandlerFunc">here</a>. So let&rsquo;s write a method with a signature like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">GetHash</span>() <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span>
+</code></pre></div><p>There&rsquo;s a reason why we actually <em>return</em> a HandlerFunc instead of making this method a handler func itself. Doing it this way, allows us to do some setup before the actual handler begins. Mat Ryer explains this concept in his famous <a href="https://pace.dev/blog/2018/05/09/how-I-write-http-services-after-eight-years.html">post</a>.</p>
+<p>The handler that we return needs to do a bunch of stuff:</p>
+<ul>
+<li>Extract the business logic request from HTTP params/body to a single struct.</li>
+<li>Call the underlying business logic service with the appropriate parameters.</li>
+<li>Form and return a suitable response with proper error handling.</li>
+</ul>
+<p>All three of the above can be seen the code below. Check out the full function (along with a helper utility) definition and see if you can decipher what it&rsquo;s doing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// respond is a internal utility to set proper HTTP responses
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">respond</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">statusCode</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#a6e22e">statusCode</span>)
+	<span style="color:#75715e">// Log the supplied error later if it&#39;s not nil
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">w</span>).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">data</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#75715e">// Log this later
+</span><span style="color:#75715e"></span>		}
+	}
+}
+
+<span style="color:#75715e">// GetHash returns the HandlerFunc for the Hash route.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">GetHash</span>() <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+	<span style="color:#75715e">// Do some potential setup here.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Not required in this case.
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+		<span style="color:#75715e">// These structs are limited to the handler scope.
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// They may seem overly verbose in this case, but they&#39;re worth it when you&#39;re dealing with more complex requests.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Request</span> <span style="color:#66d9ef">struct</span> {
+			<span style="color:#a6e22e">Str</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;str,omitempty&#34;`</span>
+		}
+		<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Response</span> <span style="color:#66d9ef">struct</span> {
+			<span style="color:#a6e22e">Hash</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;hash,omitempty&#34;`</span>
+			<span style="color:#a6e22e">Err</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;err,omitempty&#34;`</span>
+		}
+
+		<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Request</span>{}
+
+		<span style="color:#a6e22e">qparams</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">qparams</span>[<span style="color:#e6db74">&#34;str&#34;</span>]; !<span style="color:#a6e22e">ok</span> {
+			<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">respond</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">req</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;No string supplied&#34;</span>))
+			<span style="color:#66d9ef">return</span>
+		}
+
+		<span style="color:#75715e">// Grab the first &#34;str&#34; query parameter
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Str</span> = <span style="color:#a6e22e">qparams</span>[<span style="color:#e6db74">&#34;str&#34;</span>][<span style="color:#ae81ff">0</span>]
+
+		<span style="color:#a6e22e">resp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Response</span>{}
+
+		<span style="color:#a6e22e">hash</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">svc</span>.<span style="color:#a6e22e">Hash</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Str</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Err</span> = <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>()
+			<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">respond</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusInternalServerError</span>, <span style="color:#a6e22e">err</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+		<span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Hash</span> = <span style="color:#a6e22e">hash</span>
+		<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">respond</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#66d9ef">nil</span>)
+
+	}
+}
+</code></pre></div><p>A similar method, <code>GetReverseHash</code> should complete the service. It&rsquo;s going to be identical, so take a try at it yourself. You&rsquo;ll find it in the final code anyway.</p>
+<p>Great, so we have two methods that can tied to HTTP routes. To do that, we&rsquo;ll use the <code>router</code> from the struct above and define the routes there. I like to do this in a separate file (usually called <code>routes.go</code>) so that I can see an overview of all the routes in my service in one place. It also serves as a good starting place for anyone new to this code. In this service we have two simple <em>GET</em> methods but the same logic applies to any method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// routes registers the handlers to the specific routes
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">routes</span>() {
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/hash&#34;</span>, <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">GetHash</span>()).<span style="color:#a6e22e">Methods</span>(<span style="color:#e6db74">&#34;GET&#34;</span>)
+	<span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/reverse&#34;</span>, <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">GetReverseHash</span>()).<span style="color:#a6e22e">Methods</span>(<span style="color:#e6db74">&#34;GET&#34;</span>)
+}
+</code></pre></div><p>Almost there now. Like any good server, we&rsquo;ll need a <code>Start</code> method and <code>Shutdown</code> method. These aren&rsquo;t too complex and something as basic as the following works well for me:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Start begins listening for requests on the bindAddr. Blocks.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">Start</span>() <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">ListenAndServe</span>()
+}
+
+<span style="color:#75715e">// Shutdown gracefully terminates the server
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span>) <span style="color:#a6e22e">Shutdown</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">Shutdown</span>(<span style="color:#a6e22e">ctx</span>)
+}
+</code></pre></div><p>If you&rsquo;re confused about the <code>context</code> parameter, you may want to read a little bit about what it does <a href="https://golang.org/pkg/context/">here</a>. It&rsquo;ll play an important role later. The rest is fairly straight forward. We use the <code>ListenAndServe</code> method that the Go std lib provides us (no need for Tomcat etc).</p>
+<p>Let&rsquo;s finish off with a constructor for our server and we&rsquo;ll be done.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// NewRainbowHTTP returns a new HTTP server for the Rainbow Service.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewRainbowHTTP</span>(<span style="color:#a6e22e">listenAddr</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">svc</span> <span style="color:#a6e22e">RainbowService</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">RainbowHTTP</span> {
+	<span style="color:#a6e22e">router</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mux</span>.<span style="color:#a6e22e">NewRouter</span>()
+
+	<span style="color:#75715e">// Build the server
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">server</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">RainbowHTTP</span>{
+		<span style="color:#a6e22e">svc</span>:    <span style="color:#a6e22e">svc</span>,
+		<span style="color:#a6e22e">router</span>: <span style="color:#a6e22e">router</span>,
+		<span style="color:#a6e22e">server</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+			<span style="color:#a6e22e">Addr</span>:    <span style="color:#a6e22e">listenAddr</span>,
+			<span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">router</span>,
+		},
+	}
+
+	<span style="color:#75715e">// Initialize the routes
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">routes</span>()
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">server</span>
+}
+</code></pre></div><p>We have a working webservice! (far from production ready, but still). But is it really working? Only one way to tell. Tests!
+Testing webservices is something that I&rsquo;ve usually done externally (via something like Postman). That was until I started writing Go services. Go has a pretty nice testing mechanism built straight into the standard library and that&rsquo;s what we&rsquo;ll use.
+Here&rsquo;s a snippet to show how the <code>httptest</code> package works:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestHashHandler</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#75715e">// This is a method to demonstrate how to test the handlers.
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">// Should ideally be a table driven test with multiple requests later.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">server</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getServer</span>()
+	<span style="color:#a6e22e">rr</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRecorder</span>()
+
+	<span style="color:#75715e">// Create a request
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;/hash&#34;</span>, <span style="color:#66d9ef">nil</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Failed to create an HTTP Request: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">FailNow</span>()
+	}
+	<span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>()
+	<span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;str&#34;</span>, <span style="color:#e6db74">&#34;thisisastring&#34;</span>)
+	<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">RawQuery</span> = <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Encode</span>()
+
+	<span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">Handler</span>().<span style="color:#a6e22e">ServeHTTP</span>(<span style="color:#a6e22e">rr</span>, <span style="color:#a6e22e">req</span>)
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">status</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rr</span>.<span style="color:#a6e22e">Code</span>; <span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Handler returned non OK status: got %d, want %d&#34;</span>, <span style="color:#a6e22e">rr</span>.<span style="color:#a6e22e">Code</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>)
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">FailNow</span>()
+	}
+
+	<span style="color:#75715e">// Check the data
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">expectedHash</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;572642d5581b8b466da59e87bf267ceb7b2afd880b59ed7573edff4d980eb1d5&#34;</span>
+	<span style="color:#a6e22e">resp</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">Hash</span> <span style="color:#66d9ef">string</span>
+		<span style="color:#a6e22e">Err</span>  <span style="color:#66d9ef">string</span>
+	}{}
+	<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">rr</span>.<span style="color:#a6e22e">Body</span>).<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">resp</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Error Decoding Response JSON:%v&#34;</span>, <span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">FailNow</span>()
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Hash</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">expectedHash</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Wrong hash returned in response. Got - %s Want - %s&#34;</span>, <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Hash</span>, <span style="color:#a6e22e">expectedHash</span>)
+	}
+}
+</code></pre></div><p>While this is not a great test, it has been kept simple intentionally to demonstrate the point. It creates a request and then tests against the response against the expected by actually using the same handler that our HTTP server would.
+Let&rsquo;s give it a spin:</p>
+<pre><code>17:35:27 tchaudhry@QuasExort93 rainbow master ? go test -v ./...                                                                                                                              1 ↵
+=== RUN   TestServiceHash
+--- PASS: TestServiceHash (0.00s)
+=== RUN   TestServiceHashReverse
+--- PASS: TestServiceHashReverse (0.00s)
+=== RUN   TestInMemStore
+--- PASS: TestInMemStore (0.00s)
+=== RUN   TestHashHandler
+--- PASS: TestHashHandler (0.00s)
+PASS
+ok      github.com/tchaudhry91/rainbow/service
+</code></pre><p>Mmmm..Nice. Play around with the tests for a while and see if you can write them in a more table driven way.</p>
+<p>Now, that we have our transport done. We only need to tie all of this together in our <code>main</code> function. Let&rsquo;s break here and do that next time.</p>
+<p>Here&rsquo;s the <a href="https://github.com/tchaudhry91/rainbow/commit/8b776b609d60419191be454a36531b018dcc864d">git tree</a> for the code that we&rsquo;ve already written.</p>
+
+      
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <aside><div id="disqus_thread"></div></aside>
+  
+    <script type="text/javascript">
+      var disqus_shortname = 'tux-sudo';
+      function disqus() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+  
+      disqus();
+  
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-83389316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>
+
