@@ -157,3 +157,5 @@ Lovely! [Browse](https://github.com/tchaudhry91/rainbow/tree/566467618d7561ad5cb
 As an exercise please add the concrete implementation for the database of your choice! Another sample implementation for Redis has been added in the following [commit](https://github.com/tchaudhry91/rainbow/commit/ac3c9d9bb63d41c87f34107fcb7fc2c99095f86f).
 
 We're two posts in and we **still** have not touched on anything that would make this a "Web" service. I promise you, we'll get there. But how cool is it to work on your business logic unencumbered by any other terminology!? More soon.
+
+Edit: [Part-3](/posts/production-grade-svc-3/) is up!
