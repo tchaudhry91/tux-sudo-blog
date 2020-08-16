@@ -6,10 +6,20 @@
     <description>Recent content in development on Tux-Sudo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Jul 2020 15:30:44 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2020 15:02:39 +0530</lastBuildDate>
     
 	<atom:link href="https://blog.tux-sudo.com/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Production Grade Web Services with Go - Tying it Together</title>
+      <link>https://blog.tux-sudo.com/posts/production-grade-svc-4/</link>
+      <pubDate>Sun, 16 Aug 2020 15:02:39 +0530</pubDate>
+      
+      <guid>https://blog.tux-sudo.com/posts/production-grade-svc-4/</guid>
+      <description>Note : This is part four of a series of posts describing how to write &amp;ldquo;Production Grade Webservices in Go&amp;rdquo;. Here&amp;rsquo;s Part - 1, The Service , Part - 2, The Store , Part - 3, Transports.
+In part-3, we built a working HTTP service that passed the tests. But we&amp;rsquo;re still lacking the option to actually &amp;ldquo;run&amp;rdquo; it. While, this may appear like a trivial task, it&amp;rsquo;s actually quite important to get this right.</description>
+    </item>
     
     <item>
       <title>Production Grade Web Service with Go - Transports</title>
