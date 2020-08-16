@@ -1,11 +1,11 @@
 ---
-title: "Production Grade Web Service with Go - Transports"
+title: "Production Grade Web Services with Go - Transports"
 date: 2020-07-04T15:30:44+05:30
 tags: ["development", "go", "webservice", "tutorial"]
 categories: ["Development"]
 ---
 
-Note : This is part three of a series of posts describing how to write "Production Grade Webservice in Go". Here's [Part - 1, The Service ](/posts/production-grade-svc-1/) and [Part - 2 The Store ](/posts/production-grade-svc-2) if you haven't read those.
+Note : This is part three of a series of posts describing how to write "Production Grade Webservices in Go". Here's [Part - 1, The Service ](/posts/production-grade-svc-1/) and [Part - 2 The Store ](/posts/production-grade-svc-2) if you haven't read those.
 
 We've reached a point where we have properly laid out the business logic and the storage implementation for our service. Now, we're going to move on and talk about **transports**. As the name suggests, a transport is essentially transporting data over the network in a pre-defined format. JSON over HTTP is one such transport. gRPC is another. We're going to start with JSON over HTTP simply because of how popular it is. I may write a separate post that adds a gRPC transport to this very service later, but for now, HTTP-JSON. 
 

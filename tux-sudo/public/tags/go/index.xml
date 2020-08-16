@@ -22,12 +22,12 @@ In part-3, we built a working HTTP service that passed the tests. But we&amp;rsq
     </item>
     
     <item>
-      <title>Production Grade Web Service with Go - Transports</title>
+      <title>Production Grade Web Services with Go - Transports</title>
       <link>https://blog.tux-sudo.com/posts/production-grade-svc-3/</link>
       <pubDate>Sat, 04 Jul 2020 15:30:44 +0530</pubDate>
       
       <guid>https://blog.tux-sudo.com/posts/production-grade-svc-3/</guid>
-      <description>Note : This is part three of a series of posts describing how to write &amp;ldquo;Production Grade Webservice in Go&amp;rdquo;. Here&amp;rsquo;s Part - 1, The Service  and Part - 2 The Store  if you haven&amp;rsquo;t read those.
+      <description>Note : This is part three of a series of posts describing how to write &amp;ldquo;Production Grade Webservices in Go&amp;rdquo;. Here&amp;rsquo;s Part - 1, The Service  and Part - 2 The Store  if you haven&amp;rsquo;t read those.
 We&amp;rsquo;ve reached a point where we have properly laid out the business logic and the storage implementation for our service. Now, we&amp;rsquo;re going to move on and talk about transports. As the name suggests, a transport is essentially transporting data over the network in a pre-defined format.</description>
     </item>
     

@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Production Grade Web Service with Go - Transports | Tux-Sudo</title>
+<title>Production Grade Web Services with Go - Transports | Tux-Sudo</title>
 
 
 
@@ -92,10 +92,10 @@
       
     </div>
     <h2 class="subtitle is-6">July 4, 2020</h2>
-    <h1 class="title">Production Grade Web Service with Go - Transports</h1>
+    <h1 class="title">Production Grade Web Services with Go - Transports</h1>
     
     <div class="content">
-      <p>Note : This is part three of a series of posts describing how to write &ldquo;Production Grade Webservice in Go&rdquo;. Here&rsquo;s <a href="/posts/production-grade-svc-1/">Part - 1, The Service </a> and <a href="/posts/production-grade-svc-2">Part - 2 The Store </a> if you haven&rsquo;t read those.</p>
+      <p>Note : This is part three of a series of posts describing how to write &ldquo;Production Grade Webservices in Go&rdquo;. Here&rsquo;s <a href="/posts/production-grade-svc-1/">Part - 1, The Service </a> and <a href="/posts/production-grade-svc-2">Part - 2 The Store </a> if you haven&rsquo;t read those.</p>
 <p>We&rsquo;ve reached a point where we have properly laid out the business logic and the storage implementation for our service. Now, we&rsquo;re going to move on and talk about <strong>transports</strong>. As the name suggests, a transport is essentially transporting data over the network in a pre-defined format. JSON over HTTP is one such transport. gRPC is another. We&rsquo;re going to start with JSON over HTTP simply because of how popular it is. I may write a separate post that adds a gRPC transport to this very service later, but for now, HTTP-JSON.</p>
 <p>Go comes with a very nice and usable HTTP server right out of the box. We&rsquo;ll use the server that <code>net/http</code> provides us with a third-party router (<code>gorilla/mux</code>) from some added features.</p>
 <p>Let&rsquo;s define a struct that&rsquo;s going to hold all of this together. The bare-minimum looks something like this:</p>
